@@ -17,9 +17,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
-app.use("/api/pets", petsRouter);
-app.use("/api/notices", noticesRouter);
-app.use("/api/user_pets", userPetsRouter);
+// app.use("/api/pets", petsRouter);
+// app.use("/api/notices", noticesRouter);
+// app.use("/api/user_pets", userPetsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
