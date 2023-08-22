@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.1",
+    "version": "1.2",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -83,45 +83,45 @@
     },
 
     "api/auth/login": {
-        "post": {
-          "tags": ["Auth"],
-          "summary": "User login",
-  
-          "parameters": [],
-  
-          "requestBody": {
-            "description": "Login's object",
-            "required": true,
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginRequest"
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
           },
-          "responses": {
-            "201": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginResponse"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Bad request",
-              "content": {}
-            },
-            "401": {
-                "description": "Email or password is wrong",
-                "content": {}
-              }
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
           }
         }
       }
+    }
   },
 
   "components": {
@@ -150,6 +150,11 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
+          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -167,11 +172,6 @@
         "type": "object",
         "required": ["email", "password"],
         "properties": {
-          "token":{
-            "type": "string",
-            "description": "User's token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
-        },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -187,11 +187,11 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-            "token":{
-                "type": "string",
-                "description": "User's token",
-                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
-            },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
+          },
           "name": {
             "type": "string",
             "description": "User's name",
