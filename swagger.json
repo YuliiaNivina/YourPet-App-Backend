@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0",
+    "version": "1.1",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -167,6 +167,11 @@
         "type": "object",
         "required": ["email", "password"],
         "properties": {
+          "token":{
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
+        },
           "email": {
             "type": "string",
             "description": "User's email",
