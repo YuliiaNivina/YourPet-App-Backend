@@ -26,6 +26,10 @@ const userSchema = new Schema(
       required: true,
     },
     token: String,
+    avatarURL: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -36,6 +40,7 @@ const joiRegisterSchema = Joi.object({
   name: Joi.string().pattern(nameRegexp).required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().pattern(passwordRegexp).required(),
+  repeat_password: Joi.ref('password'),
 });
 
 const joiLoginSchema = Joi.object({
