@@ -10,6 +10,9 @@ const userPetsRouter = require("./routes/api/user_pets");
 
 const app = express();
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
@@ -20,6 +23,8 @@ app.use("/api/auth", authRouter);
 // app.use("/api/pets", petsRouter);
 // app.use("/api/notices", noticesRouter);
 // app.use("/api/user_pets", userPetsRouter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
