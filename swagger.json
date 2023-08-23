@@ -125,42 +125,9 @@
     
     "api/users/addPet": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "User registration",
-
-        "parameters": [],
-
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {}
-          },
-          "409": {
-            "description": "Email in use",
-            "content": {}
-          }
-        }
+        "tags": ["User_Pets"],
+        "summary": "Add user`s pet",
+      }
       }
     }
   },
