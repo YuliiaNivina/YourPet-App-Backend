@@ -12,7 +12,6 @@ const userSchema = new Schema(
   {
     avatarURL: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
@@ -33,13 +32,10 @@ const userSchema = new Schema(
     token: String,
     data: {
       type: Date,
-      required: true,
-      default: "00.00.0000",
     },
     phone: {
       type: String,
       match: phoneRegexp,
-      default: "+380000000000",
     },
     city: {
       type: String,
