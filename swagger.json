@@ -1,249 +1,351 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-      "version": "1.3",
-      "title": "Your Pet",
-      "description": "",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.3",
+    "title": "Your Pet",
+    "description": "",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json", "multipart/form-data"],
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Internal server for testing"
     },
-    "consumes": ["application/json", "multipart/form-data"],
-    "produces": ["application/json", "multipart/form-data"],
-    "servers": [
-      {
-        "url": "http://localhost:3000",
-        "description": "Internal server for testing"
-      },
-      {
-        "url": "https://yourpet-app-backend.onrender.com",
-        "description": "Main (production) server"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Auth",
-        "description": "Authorization endpoints"
-      },
-      {
-        "name": "Notices",
-        "description": "Notices endpoints"
-      },
-      {
-        "name": "Pets",
-        "description": "Pets endpoints"
-      },
-      {
-        "name": "Users",
-        "description": "Users endpoints"
-      }
-    ],
-    "paths": {
-      "api/auth/register": {
-        "post": {
-          "tags": ["Auth"],
-          "summary": "User registration",
-  
-          "parameters": [],
-  
-          "requestBody": {
-            "description": "Registration's object",
-            "required": true,
+    {
+      "url": "https://yourpet-app-backend.onrender.com",
+      "description": "Main (production) server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Notices",
+      "description": "Notices endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "Users endpoints"
+    }
+  ],
+  "paths": {
+    "api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationRequest"
+                  "$ref": "#/components/schemas/RegistrationResponse"
                 }
               }
             }
           },
-          "responses": {
-            "201": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/RegistrationResponse"
-                  }
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "409": {
+            "description": "Email in use",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+
+        "parameters": [],
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
-            },
-            "400": {
-              "description": "Bad request",
-              "content": {}
-            },
-            "409": {
-              "description": "Email in use",
-              "content": {}
             }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "204": {
+            "description": "No content",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "api/users/addPet": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Add user`s pet",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Pet's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Qwerty123"
           }
         }
       },
-  
-      "api/auth/login": {
-        "post": {
-          "tags": ["Auth"],
-          "summary": "User login",
-  
-          "parameters": [],
-  
-          "requestBody": {
-            "description": "Login's object",
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginRequest"
-                }
-              }
-            }
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
           },
-          "responses": {
-            "201": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginResponse"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Bad request",
-              "content": {}
-            },
-            "401": {
-              "description": "Email or password is wrong",
-              "content": {}
-            }
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
           }
         }
       },
 
-      "api/auth/logout": {
-        "post": {
-          "tags": ["Auth"],
-          "summary": "User logout",
-  
-          "parameters": [],
-          "security": [{ "Bearer": [] }],
-  
-         
-          "responses": {
-            "204": {
-              "description": "No content",
-              "content": {}
-            },
-            "401": {
-              "description": "Not authorized",
-              "content": {}
-            }
-          }
-        }
-      },
-      
-      "api/users/addPet": {
-        "post": {
-          "tags": ["Users"],
-          "summary": "Add user`s pet",
-          "parameters": [],
-          "requestBody": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
           },
-          "responses": {
-          }
-        }
-        }
-      }, 
-    "components": {
-      "schemas": {
-        "RegistrationRequest": {
-          "type": "object",
-          "required": ["name", "email", "password"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "John"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "password": {
-              "type": "string",
-              "description": "User's password",
-              "example": "Qwerty123"
-            }
-          }
-        },
-        "RegistrationResponse": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string",
-              "description": "User's token",
-              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
-            },
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "John"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            }
-          }
-        },
-  
-        "LoginRequest": {
-          "type": "object",
-          "required": ["email", "password"],
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "password": {
-              "type": "string",
-              "description": "User's password",
-              "example": "Qwerty123"
-            }
-          }
-        },
-        "LoginResponse": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string",
-              "description": "User's token",
-              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
-            },
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "John"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            }
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Qwerty123"
           }
         }
       },
-  
-      "securitySchemes": {
-        "Bearer": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
+
+      "AddPetRequest": {
+        "type": "object",
+        "required": ["name", "birthday", "type", "comments", "photoURL"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Spitz"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Pet's photo"
+          }
+        }
+      },
+      "AddPetResponse": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string",
+            "description": "Pet's id",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "00.00.0000"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "Spitz"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "image": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "public_id": {
+            "type": "string",
+            "description": "Pet's id",
+            "format": "uuid"
+          }
         }
       }
+    },
+
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
+  }
 }
