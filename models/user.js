@@ -6,9 +6,14 @@ const MongooseError = require("../helpers/MongooseError");
 const nameRegexp = /^[a-zа-яё]{2,16}$/i;
 const emailRegexp = /.+@.+\..+/i;
 const passwordRegexp = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z]{6,16}/;
+const phoneRegexp = /^\+380\d{7}$/;
 
 const userSchema = new Schema(
   {
+    avatarURL: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       match: nameRegexp,
@@ -26,9 +31,18 @@ const userSchema = new Schema(
       required: true,
     },
     token: String,
-    avatarURL: {
-      type: String,
+    data: {
+      type: Date,
       required: true,
+      default: "00.00.0000",
+    },
+    phone: {
+      type: String,
+      match: phoneRegexp,
+      default: "+380000000000",
+    },
+    city: {
+      type: String,
     },
   },
   { versionKey: false, timestamps: true }
