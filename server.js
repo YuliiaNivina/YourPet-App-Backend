@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const app = require('./app')
 
-const{DB_CONNECT}=process.env;
+const {DB_CONNECT} = process.env;
 
 mongoose.set('strictQuery', true);
 
