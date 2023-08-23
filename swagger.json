@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.1",
     "info": {
-      "version": "1.2",
+      "version": "1.3",
       "title": "Your Pet",
       "description": "",
       "license": {
@@ -35,8 +35,8 @@
         "description": "Pets endpoints"
       },
       {
-        "name": "User_Pets",
-        "description": "User_Pets endpoints"
+        "name": "Users",
+        "description": "Users endpoints"
       }
     ],
     "paths": {
@@ -121,10 +121,32 @@
           }
         }
       },
+
+      "api/auth/logout": {
+        "post": {
+          "tags": ["Auth"],
+          "summary": "User logout",
+  
+          "parameters": [],
+          "security": [{ "Bearer": [] }],
+  
+         
+          "responses": {
+            "204": {
+              "description": "No content",
+              "content": {}
+            },
+            "401": {
+              "description": "Not authorized",
+              "content": {}
+            }
+          }
+        }
+      },
       
       "api/users/addPet": {
         "post": {
-          "tags": ["User_Pets"],
+          "tags": ["Users"],
           "summary": "Add user`s pet",
           "parameters": [],
           "requestBody": {
