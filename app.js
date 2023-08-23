@@ -6,7 +6,7 @@ require("dotenv").config();
 const authRouter = require("./routes/api/auth");
 const petsRouter = require("./routes/api/pets");
 const noticesRouter = require("./routes/api/notices");
-const userPetsRouter = require("./routes/api/user_pets");
+const userPetsRouter = require("./routes/api/user");
 
 const app = express();
 
