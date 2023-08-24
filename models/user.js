@@ -42,13 +42,6 @@ const userSchema = new Schema(
       type: Array,
       dafault: [],
     },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    verificationToken: {
-      type: String,
-    },
     birthday: {
       type: Date,
       default: "",
