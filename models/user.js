@@ -12,6 +12,7 @@ const userSchema = new Schema(
   {
     avatarURL: {
       type: String,
+      default: "",
     },
     name: {
       type: String,
@@ -29,9 +30,22 @@ const userSchema = new Schema(
       match: passwordRegexp,
       required: true,
     },
-    token: String,
+
+    token: {
+      type: String,
+      default: null,
+    },
+    public_id: {
+      type: String,
+      default: "",
+    },
+    favoriteNotices: {
+      type: Array,
+      dafault: [],
+    },
     birthday: {
       type: Date,
+      default: "",
     },
     phone: {
       type: String,
@@ -39,6 +53,7 @@ const userSchema = new Schema(
     },
     city: {
       type: String,
+      required: [true, "Region is required"],
     },
   },
   { versionKey: false, timestamps: true }
@@ -50,7 +65,7 @@ const joiRegisterSchema = Joi.object({
   name: Joi.string().pattern(nameRegexp).required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().pattern(passwordRegexp).required(),
-  repeat_password: Joi.ref('password'),
+  repeat_password: Joi.ref("password"),
 });
 
 const joiLoginSchema = Joi.object({
@@ -66,10 +81,18 @@ const updateSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
 });
 
+const joyUpdateSchema = Joi.object({
+  email: Joi.string().email(),
+  name: Joi.string(),
+  birthday: Joi.string(),
+  city: Joi.string(),
+  phone: Joi.string().pattern(phoneRegexp).required(),
+});
+
 const schemas = {
   joiRegisterSchema,
   joiLoginSchema,
-  updateSchema,
+  joyUpdateSchema,
 };
 
 const User = model("user", userSchema);
