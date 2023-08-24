@@ -30,6 +30,7 @@ const userSchema = new Schema(
       match: passwordRegexp,
       required: true,
     },
+
     token: {
       type: String,
       default: null,
@@ -52,7 +53,6 @@ const userSchema = new Schema(
     },
     city: {
       type: String,
-      required: [true, "Region is required"],
     },
   },
   { versionKey: false, timestamps: true }
@@ -73,11 +73,11 @@ const joiLoginSchema = Joi.object({
 });
 
 const joyUpdateSchema = Joi.object({
-  email: Joi.string().email(),
+  email: Joi.string().email().required(),
   name: Joi.string(),
-  birthday: Joi.string(),
+  birthday: Joi.string().required(),
   city: Joi.string(),
-  phone: Joi.string().pattern(phoneRegexp).required(),
+  phone: Joi.string().pattern(phoneRegexp),
 });
 
 const schemas = {
