@@ -30,6 +30,7 @@ const userSchema = new Schema(
       match: passwordRegexp,
       required: true,
     },
+
     token: {
       type: String,
       default: null,
@@ -70,6 +71,14 @@ const joiRegisterSchema = Joi.object({
 const joiLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().pattern(passwordRegexp).required(),
+  birthday: Joi.date().required(),
+  phone: Joi.string().pattern(phoneRegexp),
+  city: Joi.string(),
+});
+
+const updateSchema = Joi.object({
+  name: Joi.string().pattern(nameRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).required(),
 });
 
 const joyUpdateSchema = Joi.object({
