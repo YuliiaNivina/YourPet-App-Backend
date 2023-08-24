@@ -76,11 +76,6 @@ const joiLoginSchema = Joi.object({
   city: Joi.string(),
 });
 
-const updateSchema = Joi.object({
-  name: Joi.string().pattern(nameRegexp).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-});
-
 const joyUpdateSchema = Joi.object({
   email: Joi.string().email(),
   name: Joi.string(),
