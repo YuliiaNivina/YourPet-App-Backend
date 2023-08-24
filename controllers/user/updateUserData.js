@@ -5,7 +5,7 @@ const updateUserData = async (req, res, next) => {
   const { _id } = req.user;
 
   const query = req.query;
-  const { error } = schemas.updateSchema.validate(query);
+  const { error } = schemas.joyUpdateSchema.validate(query);
   if (error) {
     next(ResultError(400, error.message));
   }
