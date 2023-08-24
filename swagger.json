@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.4",
+    "version": "1.5",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -39,8 +39,9 @@
       "description": "Users endpoints"
     }
   ],
+
   "paths": {
-    "api/auth/register": {
+    "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -81,7 +82,7 @@
       }
     },
 
-    "api/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -122,7 +123,7 @@
       }
     },
 
-    "api/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -143,7 +144,7 @@
       }
     },
 
-    "api/users/addPet": {
+    "/api/users/addPet": {
       "post": {
         "tags": ["Pets"],
         "summary": "Add user`s pet",
@@ -186,8 +187,100 @@
         }
       }
     },
+    "/api/users/pets": {
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Get all user`s pets",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
 
-    "api/update": {
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPetsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Token not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Delete user`s pet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to use",
+            "required": true
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Token not found",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Token not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/update": {
       "patch": {
         "tags": ["User"],
         "summary": "User update",
@@ -201,7 +294,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRequest"
+                "$ref": "#/components/schemas/UserUpdateRequest"
               }
             }
           }
@@ -225,8 +318,54 @@
           }
         }
       }
+    },
+    "/api/update/avatar": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "User avatar update",
+
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "User's avatar",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AvatarUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarUpdateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
+          },
+          "401": {
+            "description": "Token not found",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          }
+        }
+      }
     }
   },
+
   "components": {
     "schemas": {
       "RegistrationRequest": {
@@ -378,9 +517,108 @@
           }
         }
       },
+      "UserPetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "petId": {
+              "type": "string",
+              "description": "Pet's id",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Pet's name",
+              "example": "Bruno"
+            },
+            "birthday": {
+              "type": "string",
+              "description": "Pet's birthday",
+              "example": "00.00.0000"
+            },
+            "breed": {
+              "type": "string",
+              "description": "Pet's breed",
+              "example": "Spitz"
+            },
+            "comments": {
+              "type": "string",
+              "description": "About pet",
+              "example": "Something about pet"
+            },
+            "image": {
+              "type": "string",
+              "description": "Pet's photo",
+              "format": "binary"
+            },
+            "public_id": {
+              "type": "string",
+              "description": "Pet's id",
+              "format": "uuid"
+            }
+          }
+        },
+        "example": [
+          {
+            "petId": "497349tyh",
+            "name": "Bruno",
+            "birthday": "00.00.0000",
+            "breed": "Spitz",
+            "comments": "Something about pet",
+            "image": "",
+            "public_id": "47gh49tyh"
+          },
+          {
+            "petId": "485nhfvi9t",
+            "name": "Bruno",
+            "birthday": "00.00.0000",
+            "breed": "Spitz",
+            "comments": "Something about pet",
+            "image": "",
+            "public_id": "47g129tyh"
+          }
+        ]
+      },
 
-      "UserRequest": {
+      "CurrentUserResponse": {
         "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "00.00.0000"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "+380000000000"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city of residence",
+            "example": "Kiev"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's photo"
+          }
+        }
+      },
+
+      "UserUpdateRequest": {
+        "type": "object",
+        "required": ["email", "birthday"],
         "properties": {
           "email": {
             "type": "string",
@@ -406,6 +644,27 @@
             "type": "string",
             "description": "User's birthday",
             "example": "+380000000000"
+          }
+        }
+      },
+      "AvatarUpdateRequest": {
+        "type": "object",
+        "required": ["avatarURL"],
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
+          }
+        }
+      },
+      "AvatarUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
           }
         }
       }
