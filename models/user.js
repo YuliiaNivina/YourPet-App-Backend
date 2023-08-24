@@ -53,7 +53,6 @@ const userSchema = new Schema(
     },
     city: {
       type: String,
-      required: [true, "Region is required"],
     },
   },
   { versionKey: false, timestamps: true }
@@ -71,17 +70,14 @@ const joiRegisterSchema = Joi.object({
 const joiLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().pattern(passwordRegexp).required(),
-  birthday: Joi.date().required(),
-  phone: Joi.string().pattern(phoneRegexp),
-  city: Joi.string(),
 });
 
 const joyUpdateSchema = Joi.object({
-  email: Joi.string().email(),
+  email: Joi.string().email().required(),
   name: Joi.string(),
-  birthday: Joi.string(),
+  birthday: Joi.string().required(),
   city: Joi.string(),
-  phone: Joi.string().pattern(phoneRegexp).required(),
+  phone: Joi.string().pattern(phoneRegexp),
 });
 
 const schemas = {
