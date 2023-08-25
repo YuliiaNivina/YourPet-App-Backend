@@ -9,7 +9,7 @@ const router = new express.Router();
 
 const { ctrlWrapper } = require("../../helpers");
 
-router.get("/current", authenticaten, ctrlWrapper(ctrl.getCurrent));
+router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 router.patch(
   "/update",
