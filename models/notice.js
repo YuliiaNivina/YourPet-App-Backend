@@ -21,11 +21,11 @@ const noticesSchema = Schema({
         type: String,
         required: [true],
     },
-    petType: {
+    type: {
         type: String,
         required: [true],
     },
-    avatar: {
+    imgUrl: {
         type: String,
     },
     location: {
@@ -33,7 +33,7 @@ const noticesSchema = Schema({
         required: [true],
     },
     price: {
-        type: Number,
+        type: String,
         default: null,
     },
     comments: {
@@ -42,7 +42,7 @@ const noticesSchema = Schema({
     },
     category: {
         type: String,
-        enum: ["sell", "lost_found", "in_good_hands"],
+        enum: ["sell", "lost found", "in good hands"],
         required: [true],
     },
     favorite: [{ 
@@ -59,19 +59,19 @@ const noticesSchema = Schema({
 noticesSchema.post("save", MongooseError);
 
 const addSchema = Joi.object({
-    name: Joi.string().min(2).max(16).empty(""),
-    title: Joi.string().required().min(2).max(48),
+    name: Joi.string().empty(""),
+    title: Joi.string().required(),
     sex: Joi.string()
       .lowercase()
       .valid("male", "female")
       .required(),
     birthday: Joi.string().empty(""),
-    petType: Joi.string().empty(""),
-    avatar: Joi.string().empty(""),
+    type: Joi.string().empty(""),
+    imgUrl: Joi.string().empty(""),
     location: Joi.string().empty(""),
-    price: Joi.number().empty(""),
-    comments: Joi.string().required().min(8).max(120), 
-    category: Joi.string().valid("sell", "lost_found", "in_good_hands"),
+    price: Joi.string().empty(""),
+    comments: Joi.string().required(), 
+    category: Joi.string().valid("sell", "lost found", "in good hands"),
 });
 
 const schemas = {
