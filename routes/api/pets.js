@@ -6,15 +6,15 @@ const router = new express.Router()
 
 const { ctrlWrapper } = require('../../helpers')
 
-const { validateBody, upload } = require('../../middlewares')
+const { validateBody, upload, authenticate } = require('../../middlewares')
 
 const { schemasPet } = require('../../models/pet')
 
-router.get('/users/pets', ctrl.authentification, ctrlWrapper(ctrl.getUserPets))
+router.get('/users/pets', authenticate, ctrlWrapper(ctrl.getUserPets))
 
 router.post(
     '/users/addPet',
-    ctrl.authentification,
+    authenticate,
     upload.single('image'),
     validateBody(schemasPet),
     ctrlWrapper(ctrl.addUserPet)
@@ -22,7 +22,7 @@ router.post(
 
 router.delete(
     '/users/:petId',
-    ctrl.authentification,
+    authenticate,
     ctrlWrapper(ctrl.deleteUserPet)
 )
 
