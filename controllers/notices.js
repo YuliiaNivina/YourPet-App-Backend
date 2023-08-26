@@ -14,26 +14,29 @@ const listNotices = async (req, res, next) => {
     query.title = { $regex: search, $options: 'i' }; 
   }
 
-  const result = await Notice.find(query, { skip, limit }).populate('owner');
+  const result = await Notice.find(query).skip(skip).limit(limit);
+
   if(!result) {
-    throw ResultError(404, "Not found")
+    throw ResultError(404, "Not found");
   }
   res.json(result);
 }
   
 const getNoticeById = async (req, res, next) => {
   const { noticeId } = req.params;
+
   const result = await Notice.findById(noticeId).populate({ path: "owner", select: ["email", "phone", "name"] });
+
   if(!result) {
-      throw ResultError(404, "Not found")
+      throw ResultError(404, "Not found");
   }
-  res.json(result)
+  res.json(result);
 }
   
 const addNotice = async (req, res, next) => {
-  const { _id: owner } = req.user
-  const result = await Notice.create({...req.body, owner})
-  res.status(201).json(result)
+  const { _id: owner } = req.user;
+  const result = await Notice.create({...req.body, owner});
+  res.status(201).json(result);
 }
   
 const removeNotice = async (req, res, next) => {
@@ -46,7 +49,7 @@ const removeNotice = async (req, res, next) => {
   });
 
   if(!result) {
-    throw ResultError(404, 'Not found')
+    throw ResultError(404, 'Not found');
   }
   res.json({
     message: 'Notice deleted'
@@ -55,20 +58,21 @@ const removeNotice = async (req, res, next) => {
 
 const listFavorites = async (req, res, next) => {
   const userId = req.user.id;
-  try {
-    const user = await Notice.findById(userId).populate('favorite');
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user.favoriteNotices);
-  } catch (error) {
-    next(error);
-  }
+  const { page = 1, limit = 12 } = req.query;
+  const skip = (page - 1) * limit;
+
+  const notices = await Notice.find({ favorite: userId })
+      .skip(skip).limit(limit);
+
+  if(!notices) {
+    throw ResultError(404, 'Not found');
+  }    
+  res.json(notices);
 }
 
 const updateFavorites = async (req, res, next) => {
-  const { id } = req.user;  console.log(req.user)
-  const { noticeId } = req.params
+  const { id } = req.user; 
+  const { noticeId } = req.params;
 
   const notice = await Notice.findById(noticeId);
 
@@ -91,21 +95,22 @@ const updateFavorites = async (req, res, next) => {
 
 const listMyNotices = async (req, res, next) => {
   const ownerId = req.user.id;
-   try {
-   const notices = await Notice.find({ owner: ownerId });
-    res.json(notices);
-   } catch (error) { console.log(error)
-     next(error);
-   }
-      
+  const { page = 1, limit = 12 } = req.query;
+  const skip = (page - 1) * limit;
+  
+  const result = await Notice.find({ owner: ownerId }).skip(skip).limit(limit);
+  if(!result) {
+    throw ResultError(404, 'Not found');
+  }
+  res.json(result);   
 }
   
-  module.exports = {
-    listNotices: ctrlWrapper(listNotices),
-    getNoticeById: ctrlWrapper(getNoticeById),
-    addNotice: ctrlWrapper(addNotice),
-    removeNotice: ctrlWrapper(removeNotice),
-    listFavorites: ctrlWrapper(listFavorites),
-    updateFavorites: ctrlWrapper(updateFavorites),
-    listMyNotices: ctrlWrapper(listMyNotices),
-  }
+module.exports = {
+  listNotices: ctrlWrapper(listNotices),
+  getNoticeById: ctrlWrapper(getNoticeById),
+  addNotice: ctrlWrapper(addNotice),
+  removeNotice: ctrlWrapper(removeNotice),
+  listFavorites: ctrlWrapper(listFavorites),
+  updateFavorites: ctrlWrapper(updateFavorites),
+  listMyNotices: ctrlWrapper(listMyNotices),
+}
