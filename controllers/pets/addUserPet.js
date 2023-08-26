@@ -39,8 +39,8 @@ const addUserPet = async (req, res, next) => {
       birthday: newPet.birthday,
       breed: newPet.breed,
       comments: newPet.comments,
-      image: newPet.image,
-      public_id: newPet.public_id,
+      photoURL: newPet.image,
+      photoId: newPet.public_id,
     });
   } catch (error) {
     if (resultUpload) {
