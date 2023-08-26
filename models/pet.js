@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
 const MongooseError = require("../helpers/MongooseError");
@@ -17,9 +17,9 @@ const petSchema = Schema(
       required: [true, "Pet birthday is required"],
       default: "",
     },
-    type: {
+    breed: {
       type: String,
-      required: [true, "Pet type is required"],
+      required: [true, "Pet breed is required"],
     },
     comments: {
       type: String,
@@ -34,7 +34,7 @@ const petSchema = Schema(
       default: "",
     },
     owner: {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Users",
       required: [true, "Pet must have an owner"],
     },
@@ -60,7 +60,7 @@ const addPetSchema = Joi.object({
     "string.empty": "The birthday must not be empty",
     "string.pattern.base": "The birthday must be in format YYYY-MM-DD",
   }),
-  type: Joi.string().min(3).required().empty(false).messages({
+  breed: Joi.string().min(3).required().empty(false).messages({
     "string.base": "The type must be a string",
     "any.required": "The type field is required",
     "string.empty": "The type must not be empty",
