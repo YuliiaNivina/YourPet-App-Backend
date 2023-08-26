@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.6",
+    "version": "1.7",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -380,12 +380,51 @@
               }
             }
           },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Add notice",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNoticeRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeResponse"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Bad request",
             "content": {}
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
           "404": {
-            "description": "Not found",
+            "description": "User not found",
             "content": {}
           }
         }
@@ -407,14 +446,45 @@
         "responses": {
           "200": {
             "description": "Successful operation",
-            "content": {"multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/NoticeByIdResponse"
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeByIdResponse"
+                }
               }
-            }}
+            }
           },
           "404": {
             "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/notices/favorites": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get favorites notices",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteNoticesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
             "content": {}
           }
         }
@@ -729,7 +799,6 @@
         "type": "array",
         "items": {
           "type": "object",
-          "required": ["name", "sex", "birthday", "type", "imgURL", "location", "price", "category"],
           "properties": {
             "_id": {
               "type": "string",
@@ -818,6 +887,68 @@
         ]
       },
       "NoticeByIdResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "notice's id",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Сute dog looking for a home"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "female"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Spitz"
+          },
+          "imgURL": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet price",
+            "example": "100$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "category": {
+            "type": "string",
+            "description": "Notice category",
+            "example": "sell"
+          }
+        }
+      },
+      "FavoriteNoticesResponse": {
+        "type": "array",
+        "items": {
           "type": "object",
           "properties": {
             "_id": {
@@ -876,7 +1007,147 @@
               "example": "sell"
             }
           }
+        },
+        "example": [
+          {
+            "_Id": "497349tyh",
+            "name": "Bruno",
+            "title": "Сute dog looking for a home 1",
+            "sex": "female",
+            "birthday": "00.00.0000",
+            "type": "Spitz",
+            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "location": "Lviv",
+            "price": "100$",
+            "comments": "Something about pet",
+            "category": "sell"
+          },
+          {
+            "_Id": "485nhfvi9t",
+            "name": "Puppy",
+            "title": "Сute cat looking for a home 2",
+            "sex": "male",
+            "birthday": "00.00.0000",
+            "type": "Persian",
+            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "location": "Kyiv",
+            "price": "10$",
+            "comments": "Something about pet",
+            "category": "sell"
+          }
+        ]
+      },
+      "AddNoticeRequest": {
+        "type": "object",
+        "required": ["name", "sex", "birthday", "type", "imgURL", "location", "price", "category"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "female"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Spitz"
+          },
+          "imgURL": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet price",
+            "example": "100$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "category": {
+            "type": "string",
+            "description": "Notice category",
+            "example": "sell"
+          }
         }
+      },
+      "AddNoticeResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "notice's id",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Сute dog looking for a home"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "female"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "00.00.0000"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Spitz"
+          },
+          "imgURL": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet price",
+            "example": "100$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "category": {
+            "type": "string",
+            "description": "Notice category",
+            "example": "sell"
+          }
+        }
+      }
     },
 
     "securitySchemes": {
@@ -888,4 +1159,3 @@
     }
   }
 }
-
