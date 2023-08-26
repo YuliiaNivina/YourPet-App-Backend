@@ -2,73 +2,102 @@ const { Notice } = require("../models/notice");
 const { ResultError, ctrlWrapper } = require("../helpers");
 
 const listNotices = async (req, res, next) => {
-    const { _id: notice } = req.user
-    const { page = 1, limit = 12 } = req.query
-    const skip = (page - 1) * limit
-    const query = { notice }
+  const { category, search, page = 1, limit = 12 } = req.query;
+  const skip = (page - 1) * limit;
+  const query = {};
+  
+  if (category) {
+    query.category = category;
+  }
 
-    const result = await Notice.find(query, '-createdAt -updatedAt', { skip, limit }).populate('owner', 'email')
-    res.json(result)
+  if (search) {
+    query.title = { $regex: search, $options: 'i' }; 
+  }
+
+  const result = await Notice.find(query, { skip, limit }).populate('owner');
+  if(!result) {
+    throw ResultError(404, "Not found")
+  }
+  res.json(result);
 }
   
 const getNoticeById = async (req, res, next) => {
-    const { noticeId } = req.params 
-    const result = await Notice.findById(noticeId)
-    if(!result) {
-        throw ResultError(404, 'Not found')
-    }
-    res.json(result)
+  const { noticeId } = req.params;
+  const result = await Notice.findById(noticeId).populate({ path: "owner", select: ["email", "phone", "name"] });
+  if(!result) {
+      throw ResultError(404, "Not found")
+  }
+  res.json(result)
 }
   
 const addNotice = async (req, res, next) => {
-    const { _id: owner } = req.user
-    const result = await Notice.create({...req.body, owner})
-    res.status(201).json(result)
+  const { _id: owner } = req.user
+  const result = await Notice.create({...req.body, owner})
+  res.status(201).json(result)
 }
   
 const removeNotice = async (req, res, next) => {
-    const { noticeId } = req.params
-    const result = await Notice.findByIdAndRemove(noticeId)
-    if(!result) {
-      throw ResultError(404, 'Not found')
-    }
-    res.json({
-      message: 'Notice deleted'
-    }) 
+  const { _id: owner } = req.user;
+  const { noticeId } = req.params;
+
+  const result = await Notice.findOneAndDelete({
+    _id: noticeId,
+    owner: owner,
+  });
+
+  if(!result) {
+    throw ResultError(404, 'Not found')
+  }
+  res.json({
+    message: 'Notice deleted'
+  }) 
 }
 
 const listFavorites = async (req, res, next) => {
-    const { _id: owner } = req.user
-    const { page = 1, limit = 12, favorite = "favorite" } = req.query
-    const skip = (page - 1) * limit
-    const query = { owner }
-
-    if (favorite) {
-        query.favorite = favorite === 'true';
+  const userId = req.user.id;
+  try {
+    const user = await Notice.findById(userId).populate('favorite');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-
-    const result = await Notice.find(query, '-createdAt -updatedAt', { skip, limit }).populate('owner', 'email')
-    res.json(result)
+    res.json(user.favoriteNotices);
+  } catch (error) {
+    next(error);
+  }
 }
 
 const updateFavorites = async (req, res, next) => {
-    const { noticeId } = req.params
+  const { id } = req.user;  console.log(req.user)
+  const { noticeId } = req.params
 
-    const result = await Notice.findByIdAndUpdate(noticeId, req.body, {new: true})
-    if(!result) {
-      throw ResultError(404, 'Not found')
-    }
-    res.json(result)
+  const notice = await Notice.findById(noticeId);
+
+  if (!notice) {
+    throw ResultError(404).json({ message: 'Notice not found' });
+  }
+
+  const isUserFavorite = notice.favorite.includes(id);
+
+  if (isUserFavorite) {
+    notice.favorite = notice.favorite.pull(id);
+  } else {
+    notice.favorite.push(id);
+  }
+
+  await notice.save();
+
+  res.json(notice);
 }
 
 const listMyNotices = async (req, res, next) => {
-    const { _id: owner } = req.user
-    const { page = 1, limit = 12 } = req.query
-    const skip = (page - 1) * limit
-    const query = { owner }
-
-    const result = await Notice.find(query, '-createdAt -updatedAt', { skip, limit }).populate('owner', 'email')
-    res.json(result)
+  const ownerId = req.user.id;
+   try {
+   const notices = await Notice.find({ owner: ownerId });
+    res.json(notices);
+   } catch (error) { console.log(error)
+     next(error);
+   }
+      
 }
   
   module.exports = {
