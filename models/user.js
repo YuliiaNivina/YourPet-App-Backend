@@ -73,12 +73,12 @@ const joiLoginSchema = Joi.object({
 });
 
 const joyUpdateSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string().email(),
   name: Joi.string(),
-  birthday: Joi.string().required(),
+  birthday: Joi.string(),
   city: Joi.string(),
-  phone: Joi.string().pattern(phoneRegexp),
-});
+  phone: Joi.string().min(12).max(12),
+})
 
 const schemas = {
   joiRegisterSchema,
