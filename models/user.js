@@ -41,7 +41,7 @@ const userSchema = new Schema(
     },
     favoriteNotices: {
       type: Array,
-      dafault: [],
+      default: [],
     },
     birthday: {
       type: Date,

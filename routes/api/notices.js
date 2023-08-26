@@ -10,13 +10,13 @@ const router = express.Router();
 
 router.get("/", ctrl.listNotices);
 
-router.get("/:noticeId", ctrl.getNoticeById);
-
 router.get("/favorites", authenticate, ctrl.listFavorites);
 
 router.get("/self", authenticate, ctrl.listMyNotices);
 
-router.post("/", authenticate, validateBody(schemas.addSchema), ctrl.addNotice)
+router.get("/:noticeId", ctrl.getNoticeById);
+
+router.post("/", authenticate, validateBody(schemas.addSchema), ctrl.addNotice);
 
 router.patch("/:noticeId/favorites", authenticate, isValidId, ctrl.updateFavorites);
 
