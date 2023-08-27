@@ -2,7 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/notices");
 
-const {authenticate, validateBody, isValidId} = require("../../middlewares");
+const {authenticate, upload, validateBody, isValidId} = require("../../middlewares");
 
 const {schemas} = require("../../models/notice");
 
@@ -16,7 +16,7 @@ router.get("/self", authenticate, ctrl.listMyNotices);
 
 router.get("/:noticeId", ctrl.getNoticeById);
 
-router.post("/", authenticate, validateBody(schemas.addSchema), ctrl.addNotice);
+router.post("/", authenticate, upload.single('imgUrl'), validateBody(schemas.addSchema), ctrl.addNotice);
 
 router.patch("/:noticeId/favorites", authenticate, isValidId, ctrl.updateFavorites);
 

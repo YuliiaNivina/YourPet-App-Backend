@@ -28,13 +28,19 @@ const noticesSchema = Schema({
     imgUrl: {
         type: String,
     },
+    publicId: {
+        type: String,
+        default: "",
+    },
     location: {
         type: String,
         required: [true],
     },
     price: {
         type: String,
-        default: null,
+        required: function () {
+            return this.category === 'sell';
+        },
     },
     comments: {
         type: String,
@@ -42,7 +48,7 @@ const noticesSchema = Schema({
     },
     category: {
         type: String,
-        enum: ["sell", "lost found", "in good hands"],
+        enum: ["sell", "lost-found", "in-good-hands"],
         required: [true],
     },
     favorite: [{ 
@@ -61,6 +67,7 @@ noticesSchema.post("save", MongooseError);
 const addSchema = Joi.object({
     name: Joi.string().empty(""),
     title: Joi.string().required(),
+    category: Joi.string().valid("sell", "lost-found", "in-good-hands"),
     sex: Joi.string()
       .lowercase()
       .valid("male", "female")
@@ -69,9 +76,14 @@ const addSchema = Joi.object({
     type: Joi.string().empty(""),
     imgUrl: Joi.string().empty(""),
     location: Joi.string().empty(""),
-    price: Joi.string().empty(""),
+    price: Joi.when('category', {
+        is: 'sell',
+        then: Joi.string().required().messages({
+            'any.required': "The price field is required for the 'sell' category",
+        }),
+        otherwise: Joi.string().allow('').optional(),
+    }),
     comments: Joi.string().required(), 
-    category: Joi.string().valid("sell", "lost found", "in good hands"),
 });
 
 const schemas = {
