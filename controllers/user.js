@@ -4,7 +4,7 @@ const fs = require("fs/promises");
 const { User, schemas } = require("../models/user");
 const { cloudinary, ResultError, ctrlWrapper } = require("../helpers");
 
-const avatarDir = path.join(__dirname, "../../", "public", "avatars");
+const avatarDir = path.join(__dirname, "../", "public", "avatars");
 
 const getCurrent = async (req, res) => {
   const { _id, name, email, avatarURL, birthday, phone, city } = req.user;
@@ -14,23 +14,25 @@ const getCurrent = async (req, res) => {
 
 const updateUserData = async (req, res, next) => {
   const { _id } = req.user;
-
   const query = req.body;
+  let updatedUser = {};
 
   const { error } = schemas.joyUpdateSchema.validate(query);
   if (error) {
     next(ResultError(400, error.message));
   }
 
+  if (req.body) updatedUser = { ...req.body };
+  if (req.file) updatedUser.avatarURL = req.file.path;
+
+  console.log(updatedUser);
   const { name, email, avatarURL, birthday, phone, city } =
-    await User.findByIdAndUpdate(_id, req.user, req.body, {
+    await User.findByIdAndUpdate(_id, updatedUser, {
       new: true,
       runValidators: true,
     });
 
-  if (!name || !email) {
-    next(ResultError(404));
-  }
+    if (!name || !email) throw ResultError(404, "Not found");
 
   res.status(201).json({ _id, name, email, avatarURL, birthday, phone, city });
 };
