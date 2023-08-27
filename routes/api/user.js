@@ -7,22 +7,10 @@ const {schemas} = require("../../models/user");
 
 const router = new express.Router();
 
-const { ctrlWrapper } = require("../../helpers");
+router.get("/current", authenticate, ctrl.getCurrent);
 
-router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
+router.patch("/update", authenticate, validateBody(schemas.joyUpdateSchema), ctrl.updateUserData);
 
-router.patch(
-  "/update",
-  authenticate,
-  validateBody(schemas.joyUpdateSchema),
-  ctrlWrapper(ctrl.updateUserData)
-);
-
-router.patch(
-  "/update/avatar",
-  authenticate,
-  upload.single("avatarURL"),
-  ctrlWrapper(ctrl.updateUserAvatar)
-);
+router.patch("/update/avatar", authenticate, upload.single("avatarURL"), ctrl.updateUserAvatar);
 
 module.exports = router;

@@ -1,15 +1,29 @@
 const path = require("path");
 const fs = require("fs/promises");
 
-const { ResultError, cloudinary } = require("../../helpers");
-const { Pet } = require("../../models/pet");
+const { ResultError, cloudinary, ctrlWrapper } = require("../helpers");
+const { Pet } = require("../models/pet");
 
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
+
+const getUserPets = async (req, res, next) => {
+  const { _id: owner } = req.user;
+  const result = await Pet.find(
+    { owner },
+    "name birthday type comments photoURL"
+  );
+
+  if (!result) {
+    throw ResultError(404, "Not found");
+  }
+
+  res.json(result);
+}
 
 const addUserPet = async (req, res, next) => {
   const { _id: owner } = req.user;
   if (!req.file) {
-    next(ResultError(400, "Image is required"));
+    throw ResultError(400, "Image is required");
   }
   const { path: tempUpload, originalname } = req.file;
   const filename = `${owner}_ownPet_${originalname}`;
@@ -47,8 +61,29 @@ const addUserPet = async (req, res, next) => {
       fs.unlink(resultUpload);
     }
 
-    next(ResultError(403, error.message));
+    throw ResultError(403, error.message);
   }
 };
 
-module.exports = addUserPet;
+const deleteUserPet = async (req, res, next) => {
+  const deletingImage = await Pet.findById({ _id: req.params.petId });
+  const status = await Pet.findByIdAndRemove(req.params.petId);
+  if (!status) {
+    throw ResultError(404);
+  }
+  try {
+    await cloudinary.uploader
+      .destroy(deletingImage.public_id)
+      .then((result) => result);
+  } catch (error) {
+    next(ResultError(404, error.message));
+  }
+
+  res.json({ message: "Successful delete" });
+};
+
+module.exports = {
+  getUserPets: ctrlWrapper(getUserPets),
+  addUserPet: ctrlWrapper(addUserPet),
+  deleteUserPet: ctrlWrapper(deleteUserPet),
+};
