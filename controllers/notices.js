@@ -1,5 +1,7 @@
+const fs = require("fs/promises");
+
 const { Notice } = require("../models/notice");
-const { ResultError, ctrlWrapper } = require("../helpers");
+const { ResultError, cloudinary, ctrlWrapper } = require("../helpers");
 
 const listNotices = async (req, res, next) => {
   const { category, search, page = 1, limit = 12 } = req.query;
@@ -35,9 +37,33 @@ const getNoticeById = async (req, res, next) => {
   
 const addNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
-  const result = await Notice.create({...req.body, owner});
+
+  if (!req.file) {
+    throw ResultError(400, "Image is required");
+  }
+
+  const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+    folder: "notice-images",
+  });
+
+  const imageURL = uploadResult.secure_url;
+  const publicId = uploadResult.public_id;
+
+  const result = await Notice.create({
+    ...req.body,
+    imgUrl: imageURL,
+    public_id: publicId,
+    owner,
+  });
+
+  await fs.unlink(req.file.path);
+
+  if(!result) {
+    throw ResultError(404, 'Not added');
+  }
+
   res.status(201).json(result);
-}
+};
   
 const removeNotice = async (req, res, next) => {
   const { _id: owner } = req.user;
@@ -47,6 +73,10 @@ const removeNotice = async (req, res, next) => {
     _id: noticeId,
     owner: owner,
   });
+
+  if (result.public_id) {
+    await cloudinary.uploader.destroy(result.public_id);
+  }
 
   if(!result) {
     throw ResultError(404, 'Not found');
@@ -71,7 +101,7 @@ const listFavorites = async (req, res, next) => {
 }
 
 const updateFavorites = async (req, res, next) => {
-  const { id } = req.user; 
+  const userId = req.user.id;
   const { noticeId } = req.params;
 
   const notice = await Notice.findById(noticeId);
@@ -80,12 +110,12 @@ const updateFavorites = async (req, res, next) => {
     throw ResultError(404).json({ message: 'Notice not found' });
   }
 
-  const isUserFavorite = notice.favorite.includes(id);
+  const isUserFavorite = notice.favorite.includes(userId);
 
   if (isUserFavorite) {
-    notice.favorite = notice.favorite.pull(id);
+    notice.favorite.pull(userId);
   } else {
-    notice.favorite.push(id);
+    notice.favorite.push(userId);
   }
 
   await notice.save();
