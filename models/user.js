@@ -61,15 +61,55 @@ const userSchema = new Schema(
 userSchema.post("save", MongooseError);
 
 const joiRegisterSchema = Joi.object({
-  name: Joi.string().pattern(nameRegexp).required(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().pattern(passwordRegexp).required(),
-  repeat_password: Joi.ref("password"),
+  name: Joi.string().pattern(nameRegexp).required().empty(false).messages({
+    "string.base": "The name must be a string",
+    "any.required": "The name field is required",
+    "string.empty": "The name must not be empty.",
+    "string.min": "The name must be not less 2 symbols.",
+    "string.max": "The name must be not more 16 symbols.",
+    "string.pattern.base": "The name must consist only any letters.",
+  }),
+  email: Joi.string().pattern(emailRegexp).required().empty(false).messages({
+    "string.base": "The email must be a string",
+    "any.required": "The email field is required",
+    "string.empty": "The email must not be empty.",
+    "string.email": "The value to be a valid email address",
+  }),
+  password: Joi.string()
+    .pattern(passwordRegexp)
+    .required()
+    .empty(false)
+    .messages({
+      "string.base": "The password must be a string",
+      "any.required": "The password field is required",
+      "string.empty": "The password must not be empty.",
+      "string.min": "The password must be not less 6 symbols.",
+      "string.max": "The name must be not more 16 symbols.",
+      "string.pattern.base":
+        "The password must consist of 6 English letters at least 1 uppercase letter, 1 lowercase letter and 1 number.",
+    }),
 });
 
 const joiLoginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().pattern(passwordRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).required().empty(false).messages({
+    "string.base": "The email must be a string",
+    "any.required": "The email field is required",
+    "string.empty": "The email must not be empty.",
+    "string.email": "The value to be a valid email address",
+  }),
+  password: Joi.string()
+    .pattern(passwordRegexp)
+    .required()
+    .empty(false)
+    .messages({
+      "string.base": "The password must be a string",
+      "any.required": "The password field is required",
+      "string.empty": "The password must not be empty.",
+      "string.min": "The password must be not less 6 symbols.",
+      "string.max": "The name must be not more 16 symbols.",
+      "string.pattern.base":
+        "The password must consist of 6 English letters at least 1 uppercase letter, 1 lowercase letter and 1 number.",
+    }),
 });
 
 const joyUpdateSchema = Joi.object({
@@ -78,7 +118,7 @@ const joyUpdateSchema = Joi.object({
   birthday: Joi.string(),
   city: Joi.string(),
   phone: Joi.string().min(13).max(13),
-})
+});
 
 const schemas = {
   joiRegisterSchema,
