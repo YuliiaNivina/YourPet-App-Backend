@@ -6,7 +6,7 @@ const MongooseError = require("../helpers/MongooseError");
 const nameRegexp = /^[a-zа-яё]{2,16}$/i;
 const emailRegexp = /.+@.+\..+/i;
 const passwordRegexp = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z]{6,16}/;
-const phoneRegexp = /^\+380\d{7}$/;
+const phoneRegexp = /^\+380\d{9}$/;
 
 const userSchema = new Schema(
   {
