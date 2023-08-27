@@ -4,27 +4,15 @@ const ctrl = require('../../controllers/pets')
 
 const router = new express.Router()
 
-const { ctrlWrapper } = require('../../helpers')
-
 const { validateBody, upload, authenticate } = require('../../middlewares')
 
 const { schemasPet } = require('../../models/pet')
 
-router.get('/users/pets', authenticate, ctrlWrapper(ctrl.getUserPets))
+router.get('/users/pets', authenticate, ctrl.getUserPets);
 
-router.post(
-    '/users/addPet',
-    authenticate,
-    upload.single('photoURL'),
-    validateBody(schemasPet.addPetSchema),
-    ctrlWrapper(ctrl.addUserPet)
-)
+router.post('/users/addPet', authenticate, upload.single('photoURL'), validateBody(schemasPet.addPetSchema), ctrl.addUserPet);
 
-router.delete(
-    '/users/:petId',
-    authenticate,
-    ctrlWrapper(ctrl.deleteUserPet)
-)
+router.delete('/users/:petId', authenticate, ctrl.deleteUserPet);
 
-module.exports = router
+module.exports = router;
 
