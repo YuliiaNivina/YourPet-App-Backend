@@ -77,7 +77,7 @@ const joyUpdateSchema = Joi.object({
   name: Joi.string(),
   birthday: Joi.string(),
   city: Joi.string(),
-  phone: Joi.string().min(12).max(12),
+  phone: Joi.string().min(13).max(13),
 })
 
 const schemas = {
