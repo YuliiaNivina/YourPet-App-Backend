@@ -28,7 +28,7 @@ const addUserPet = async (req, res, next) => {
     });
     const newPet = await Pet.create({
       ...req.body,
-      image: imageURL,
+      photoURL: imageURL,
       public_id: publicId,
       owner,
     });
