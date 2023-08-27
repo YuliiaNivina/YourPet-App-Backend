@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.9",
+    "version": "1.10",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -13,11 +13,11 @@
   "produces": ["application/json", "multipart/form-data"],
   "servers": [
     {
-      "url": "http://localhost:3000",
+      "url": "http://localhost:3000/api",
       "description": "Internal server for testing"
     },
     {
-      "url": "https://yourpet-app-backend.onrender.com",
+      "url": "https://yourpet-app-backend.onrender.com/api",
       "description": "Main (production) server"
     }
   ],
@@ -41,7 +41,7 @@
   ],
 
   "paths": {
-    "/api/auth/register": {
+    "/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -81,7 +81,7 @@
         }
       }
     },
-    "/api/auth/login": {
+    "/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/api/auth/logout": {
+    "/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -142,7 +142,7 @@
       }
     },
 
-    "/api/users/addPet": {
+    "/pets/users/addPet": {
       "post": {
         "tags": ["Pets"],
         "summary": "Add user`s pet",
@@ -185,7 +185,7 @@
         }
       }
     },
-    "/api/users/pets": {
+    "/pets/users/pets": {
       "get": {
         "tags": ["Pets"],
         "summary": "Get all user`s pets",
@@ -218,7 +218,7 @@
         }
       }
     },
-    "/api/users/{petId}": {
+    "/pets/users/{petId}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete user`s pet",
@@ -249,7 +249,7 @@
       }
     },
 
-    "/api/current": {
+    "/user/current": {
       "get": {
         "tags": ["User"],
         "summary": "Get current user",
@@ -278,7 +278,7 @@
         }
       }
     },
-    "/api/update": {
+    "/user/update": {
       "patch": {
         "tags": ["User"],
         "summary": "User update",
@@ -323,7 +323,7 @@
         }
       }
     },
-    "/api/update/avatar": {
+    "/user/update/avatar": {
       "patch": {
         "tags": ["User"],
         "summary": "User avatar update",
@@ -369,11 +369,34 @@
       }
     },
 
-    "/api/notices": {
+    "/notices": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get all notices",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Category of notices",
+            "required": true,
+            "style": "form",
+            "example": "sell, lost/found, in good hands"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page of notices",
+            "style": "form",
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Notices page limit",
+            "style": "form",
+            "example": "10"
+          }
+        ],
 
         "responses": {
           "200": {
@@ -436,7 +459,7 @@
         }
       }
     },
-    "/api/notices/{noticeId}": {
+    "/notices/{noticeId}": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get one notice by id",
@@ -495,7 +518,7 @@
         }
       }
     },
-    "/api/notices/favorites": {
+    "/notices/favorites": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get favorites notices",
@@ -524,7 +547,7 @@
         }
       }
     },
-    "/api/notices/self": {
+    "/notices/self": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get user`s notices",
@@ -553,7 +576,7 @@
         }
       }
     },
-    "/api/notices/{noticeId}/favorite": {
+    "/notices/{noticeId}/favorite": {
       "patch": {
         "tags": ["Notices"],
         "summary": "Add notice to favorite",
@@ -650,15 +673,20 @@
             "description": "User's token",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
           },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "John"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "John"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              }
+            }
           }
         }
       },
@@ -687,15 +715,20 @@
             "description": "User's token",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
           },
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "John"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "John"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              }
+            }
           }
         }
       },
@@ -1381,6 +1414,7 @@
       "AddNoticeRequest": {
         "type": "object",
         "required": [
+          "title",
           "name",
           "sex",
           "birthday",
@@ -1391,6 +1425,11 @@
           "category"
         ],
         "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Cute dog looking for a home"
+          },
           "name": {
             "type": "string",
             "description": "Pet's name",
@@ -1446,15 +1485,15 @@
             "description": "notice's id",
             "format": "uuid"
           },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "example": "Bruno"
-          },
           "title": {
             "type": "string",
             "description": "Title of notice",
             "example": "Сute dog looking for a home"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
           },
           "sex": {
             "type": "string",
