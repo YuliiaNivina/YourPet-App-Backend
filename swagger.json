@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.8",
+    "version": "1.9",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -152,7 +152,7 @@
           "description": "Pet's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AddPetRequest"
               }
@@ -300,7 +300,13 @@
         "responses": {
           "201": {
             "description": "Successful operation",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserUpdateResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request",
@@ -329,7 +335,7 @@
           "description": "User's avatar",
           "required": true,
           "content": {
-            "multipart/form-data": {
+            "image/png, image/jpeg": {
               "schema": {
                 "$ref": "#/components/schemas/AvatarUpdateRequest"
               }
@@ -340,7 +346,7 @@
           "201": {
             "description": "Successful operation",
             "content": {
-              "multipart/form-data": {
+              "image/png, image/jpeg": {
                 "schema": {
                   "$ref": "#/components/schemas/AvatarUpdateResponse"
                 }
@@ -396,7 +402,7 @@
           "description": "Registration's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AddNoticeRequest"
               }
@@ -720,7 +726,8 @@
           },
           "photoURL": {
             "type": "string",
-            "description": "Pet's photo"
+            "description": "Pet's photo",
+            "format": "binary"
           }
         }
       },
@@ -752,7 +759,7 @@
             "description": "About pet",
             "example": "Something about pet"
           },
-          "image": {
+          "photoURL": {
             "type": "string",
             "description": "Pet's photo",
             "format": "binary"
@@ -794,7 +801,7 @@
               "description": "About pet",
               "example": "Something about pet"
             },
-            "image": {
+            "photoURL": {
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
@@ -858,7 +865,8 @@
           },
           "avatarURL": {
             "type": "string",
-            "description": "User's photo"
+            "description": "User's photo",
+            "format": "binary"
           }
         }
       },
@@ -866,6 +874,36 @@
       "UserUpdateRequest": {
         "type": "object",
         "required": ["email", "birthday"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "John"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "00.00.0000"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city of residence",
+            "example": "Kiev"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "+380000000000"
+          }
+        }
+      },
+      "UserUpdateResponse": {
+        "type": "object",
         "properties": {
           "email": {
             "type": "string",
@@ -1342,7 +1380,16 @@
       },
       "AddNoticeRequest": {
         "type": "object",
-        "required": ["name", "sex", "birthday", "type", "imgURL", "location", "price", "category"],
+        "required": [
+          "name",
+          "sex",
+          "birthday",
+          "type",
+          "imgURL",
+          "location",
+          "price",
+          "category"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -1451,7 +1498,6 @@
           }
         }
       }
-      
     },
 
     "securitySchemes": {
