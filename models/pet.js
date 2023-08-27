@@ -28,6 +28,7 @@ const petSchema = Schema(
     photoURL: {
       type: String,
       required: [true, "Pet photo is required"],
+      default: "",
     },
     photoId: {
       type: String,
@@ -72,10 +73,6 @@ const addPetSchema = Joi.object({
     "string.empty": "The comments must not be empty",
     "string.min": "The comments must be not less 3 symbols",
   }),
-  photoURL: Joi.string().uri().required().messages({
-    "any.required": "The photo field is required",
-  }),
-  photoId: Joi.string(),
 });
 const schemasPet = { addPetSchema };
 

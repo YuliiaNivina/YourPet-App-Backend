@@ -15,8 +15,8 @@ router.get('/users/pets', authenticate, ctrlWrapper(ctrl.getUserPets))
 router.post(
     '/users/addPet',
     authenticate,
-    upload.single('image'),
-    validateBody(schemasPet),
+    upload.single('photoURL'),
+    validateBody(schemasPet.addPetSchema),
     ctrlWrapper(ctrl.addUserPet)
 )
 
