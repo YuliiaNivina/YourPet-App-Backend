@@ -4,7 +4,7 @@ const fs = require("fs/promises");
 const { ResultError, cloudinary, ctrlWrapper } = require("../helpers");
 const { Pet } = require("../models/pet");
 
-const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
+const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const getUserPets = async (req, res) => {
   const {

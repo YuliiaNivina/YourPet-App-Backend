@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.12",
+    "version": "1.13",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -418,7 +418,7 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Category of notices: sell, lost/found, in good hands",
+            "description": "Category of notices: sell, lost-found, in-good-hands",
             "required": true,
             "style": "form",
             "example": "sell"
@@ -621,7 +621,7 @@
     "/notices/{noticeId}/favorite": {
       "patch": {
         "tags": ["Notices"],
-        "summary": "Add notice to favorite",
+        "summary": "Add and delite notice to favorite",
         "parameters": [
           {
             "name": "noticeId",
@@ -649,34 +649,6 @@
           },
           "404": {
             "description": "Notice not found",
-            "content": {}
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Notices"],
-        "summary": "Delete notice from favorite",
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "description": "ID of notice to use",
-            "required": true
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-
-        "responses": {
-          "200": {
-            "description": "Notice deleted",
-            "content": {}
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {}
-          },
-          "404": {
-            "description": "Not found",
             "content": {}
           }
         }
@@ -787,20 +759,16 @@
                 "format": "email"
               },
               "public_id": {
-                "type": "string"
+                "type": "string",
+                "example": ""
               },
-              "favoriteNotices": {
+              "favorite": {
                 "type": "array",
                 "items":{
-                  "type": "object",
-                  "example": [
-                    {}, {}
-                  ]
+                  "type": "string",
+                  "example": ""
                 }
               },
-              "example": [
-                {}, {}
-              ],
               "birthday": {
                 "type": "string",
                 "description": "User's birthday",
@@ -875,7 +843,8 @@
           "photoURL": {
             "type": "string",
             "description": "Pet's photo",
-            "format": "binary"
+            "format": "binary",
+            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           }
         }
       },
@@ -897,25 +866,10 @@
             "description": "Pet's birthday",
             "example": "2023-08-28"
           },
-          "breed": {
-            "type": "string",
-            "description": "Pet's breed",
-            "example": "Spitz"
-          },
           "comments": {
             "type": "string",
             "description": "About pet",
             "example": "Something about pet"
-          },
-          "photoURL": {
-            "type": "string",
-            "description": "Pet's photo",
-            "format": "binary"
-          },
-          "public_id": {
-            "type": "string",
-            "description": "Pet's id",
-            "format": "uuid"
           }
         }
       },
@@ -1161,6 +1115,25 @@
               "type": "string",
               "description": "Notice category",
               "example": "sell"
+            },
+            "favorite": {
+              "type": "array",
+              "items":{
+                "type": "string"
+              }
+            },
+            "owner": {
+              "type": "string",
+              "description": "Notice owner"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            },
+            "pablicId": {
+              "type": "string"
             }
           }
         },
@@ -1176,7 +1149,12 @@
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
-            "category": "sell"
+            "category": "sell",
+            "favorite": [],
+            "owner": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "pablicId": ""
           },
           {
             "_Id": "485nhfvi9t",
@@ -1189,7 +1167,12 @@
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
-            "category": "sell"
+            "category": "sell",
+            "favorite": [],
+            "owner": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "pablicId": ""
           }
         ]
       },
@@ -1232,6 +1215,10 @@
             "format": "binary",
             "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           },
+          "pablicId": {
+            "type": "string",
+            "example": ""
+          },
           "location": {
             "type": "string",
             "description": "Pet's location",
@@ -1251,6 +1238,23 @@
             "type": "string",
             "description": "Notice category",
             "example": "sell"
+          },
+          "favorite": {
+            "type": "array",
+            "items":{
+              "type": "string"
+            }
+          },
+          "owner": {
+            "type": "object",
+            "description": "Notice owner",
+            "example": {}
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
           }
         }
       },
@@ -1476,6 +1480,9 @@
               "description": "Pet's photo",
               "format": "binary"
             },
+            "pablicId": {
+              "type": "string"
+            },
             "location": {
               "type": "string",
               "description": "Pet's location",
@@ -1495,6 +1502,22 @@
               "type": "string",
               "description": "Notice category",
               "example": "sell"
+            },
+            "favorite": {
+              "type": "array",
+              "items":{
+                "type": "string"
+              }
+            },
+            "owner": {
+              "type": "string",
+              "description": "Notice owner"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
             }
           }
         },
@@ -1507,10 +1530,15 @@
             "birthday": "2023-08-28",
             "type": "Spitz",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "pablicId": "",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
-            "category": "sell"
+            "category": "sell",
+            "favorite": [],
+            "owner": "",
+            "createdAt": "",
+            "updatedAt": ""
           },
           {
             "_Id": "485nhfvi9t",
@@ -1520,10 +1548,15 @@
             "birthday": "2023-08-28",
             "type": "Persian",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "pablicId": "",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
-            "category": "sell"
+            "category": "sell",
+            "favorite": [],
+            "owner": "",
+            "createdAt": "",
+            "updatedAt": ""
           }
         ]
       },
@@ -1587,7 +1620,7 @@
           },
           "category": {
             "type": "string",
-            "description": "Category of notices: sell, lost/found, in good hands",
+            "description": "Category of notices: sell, lost-found, in-good-hands",
             "example": "sell"
           }
         }
@@ -1595,21 +1628,16 @@
       "AddNoticeResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "notice's id",
-            "format": "uuid"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title of notice",
-            "example": "Сute dog looking for a home"
-          },
           "name": {
             "type": "string",
             "description": "Pet's name",
             "example": "Bruno"
           },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Сute dog looking for a home"
+          },  
           "sex": {
             "type": "string",
             "description": "Sex of pet",
@@ -1631,6 +1659,10 @@
             "format": "binary",
             "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           },
+          "public_id": {
+            "type": "string",
+            "example": ""
+          },
           "location": {
             "type": "string",
             "description": "Pet's location",
@@ -1650,6 +1682,29 @@
             "type": "string",
             "description": "Notice category",
             "example": "sell"
+          },
+          "favorite": {
+            "type": "array",
+            "items":{
+              "type": "string",
+              "example": ""
+            }
+          },
+          "owner": {
+            "type": "string",
+            "description": "Notice owner",
+            "example": ""
+          },
+          "_id": {
+            "type": "string",
+            "description": "notice's id",
+            "format": "uuid"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
           }
         }
       }
