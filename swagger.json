@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.10",
+    "version": "1.11",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -746,7 +746,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "type": {
             "type": "string",
@@ -781,7 +781,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "breed": {
             "type": "string",
@@ -823,7 +823,7 @@
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "example": "00.00.0000"
+              "example": "2023-08-28"
             },
             "breed": {
               "type": "string",
@@ -851,7 +851,7 @@
           {
             "petId": "497349tyh",
             "name": "Bruno",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "breed": "Spitz",
             "comments": "Something about pet",
             "image": "",
@@ -860,7 +860,7 @@
           {
             "petId": "485nhfvi9t",
             "name": "Bruno",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "breed": "Spitz",
             "comments": "Something about pet",
             "image": "",
@@ -880,7 +880,7 @@
           "birthday": {
             "type": "string",
             "description": "User's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "email": {
             "type": "string",
@@ -922,7 +922,7 @@
           "birthday": {
             "type": "string",
             "description": "User's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "city": {
             "type": "string",
@@ -952,7 +952,7 @@
           "birthday": {
             "type": "string",
             "description": "User's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "city": {
             "type": "string",
@@ -1016,7 +1016,7 @@
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "example": "00.00.0000"
+              "example": "2023-08-28"
             },
             "type": {
               "type": "string",
@@ -1056,7 +1056,7 @@
             "name": "Bruno",
             "title": "Сute dog looking for a home 1",
             "sex": "female",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Spitz",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
@@ -1069,7 +1069,7 @@
             "name": "Puppy",
             "title": "Сute cat looking for a home 2",
             "sex": "male",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Persian",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
@@ -1105,7 +1105,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "type": {
             "type": "string",
@@ -1168,7 +1168,7 @@
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "example": "00.00.0000"
+              "example": "2023-08-28"
             },
             "type": {
               "type": "string",
@@ -1208,7 +1208,7 @@
             "name": "Bruno",
             "title": "Сute dog looking for a home 1",
             "sex": "female",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Spitz",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
@@ -1221,7 +1221,7 @@
             "name": "Puppy",
             "title": "Сute cat looking for a home 2",
             "sex": "male",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Persian",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
@@ -1259,7 +1259,7 @@
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "example": "00.00.0000"
+              "example": "2023-08-28"
             },
             "type": {
               "type": "string",
@@ -1299,7 +1299,7 @@
             "name": "Bruno",
             "title": "Сute dog looking for a home 1",
             "sex": "female",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Spitz",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
@@ -1312,7 +1312,7 @@
             "name": "Puppy",
             "title": "Сute cat looking for a home 2",
             "sex": "male",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Persian",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
@@ -1350,7 +1350,7 @@
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "example": "00.00.0000"
+              "example": "2023-08-28"
             },
             "type": {
               "type": "string",
@@ -1390,7 +1390,7 @@
             "name": "Bruno",
             "title": "Сute dog looking for a home 1",
             "sex": "female",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Spitz",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
@@ -1403,7 +1403,7 @@
             "name": "Puppy",
             "title": "Сute cat looking for a home 2",
             "sex": "male",
-            "birthday": "00.00.0000",
+            "birthday": "2023-08-28",
             "type": "Persian",
             "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
@@ -1444,7 +1444,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "type": {
             "type": "string",
@@ -1504,7 +1504,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "example": "00.00.0000"
+            "example": "2023-08-28"
           },
           "type": {
             "type": "string",
