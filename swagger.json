@@ -586,6 +586,12 @@
             "in": "path",
             "description": "ID of notice to use",
             "required": true
+          },
+           {
+            "name": "userId",
+            "in": "query",
+            "description": "ID of user to use",
+            "required": true
           }
         ],
         "security": [{ "Bearer": [] }],
