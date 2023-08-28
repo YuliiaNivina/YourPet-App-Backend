@@ -31,10 +31,6 @@ const userSchema = new Schema(
       required: true,
     },
 
-    // token: {
-    //   type: String,
-    //   default: null,
-    // },
     accessToken: {
       type: String,
     },
