@@ -6,25 +6,41 @@ const { Pet } = require("../models/pet");
 
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
 
-const getUserPets = async (req, res, next) => {
-  const { _id: owner } = req.user;
+const getUserPets = async (req, res) => {
+  const {
+    _id: owner,
+    name,
+    email,
+    avatarURL,
+    birthday,
+    phone,
+    city,
+  } = req.user;
+
   const result = await Pet.find(
     { owner },
-    "name birthday type comments photoURL"
+    "name birthday type comments photoURL",
+    "-createdAt -updatedAt -owner"
   );
 
   if (!result) {
     throw ResultError(404, "Not found");
   }
 
-  res.json(result);
-}
+  res.status(200).json({
+    pets: result,
+    owner: { _id: owner, name, email, avatarURL, birthday, phone, city },
+  });
+};
 
-const addUserPet = async (req, res, next) => {
+const addUserPet = async (req, res) => {
   const { _id: owner } = req.user;
-  if (!req.file) {
-    throw ResultError(400, "Image is required");
+  console.log(owner);
+
+  if (!req.body || !req.file) {
+    throw ResultError(400, "Missing any field");
   }
+
   const { path: tempUpload, originalname } = req.file;
   const filename = `${owner}_ownPet_${originalname}`;
   const resultUpload = path.join(avatarsDir, filename);
@@ -67,16 +83,16 @@ const addUserPet = async (req, res, next) => {
 
 const deleteUserPet = async (req, res, next) => {
   const { petId } = req.params;
-  const userId = req.user.id;
-  const deletingImage = await Pet.findById({ _id: req.params.petId })
-    const status = await Pet.findByIdAndRemove({ _id: petId, owner: userId })
+  const  { _id: owner } = req.user.id;
+  const deletingImage = await Pet.findById({ _id: req.params.petId });
+  const status = await Pet.findByIdAndRemove(petId, owner);
   if (!status) {
     throw ResultError(404);
   }
   try {
     await cloudinary.uploader
       .destroy(deletingImage.public_id)
-      .then( (result) => result)
+      .then((result) => result);
   } catch (error) {
     next(ResultError(404, error.message));
   }
