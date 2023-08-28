@@ -1473,7 +1473,7 @@
           },
           "category": {
             "type": "string",
-            "description": "Notice category",
+            "description": "Category of notices: sell, lost/found, in good hands",
             "example": "sell"
           }
         }
