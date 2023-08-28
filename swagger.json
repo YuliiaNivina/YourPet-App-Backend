@@ -735,7 +735,7 @@
 
       "AddPetRequest": {
         "type": "object",
-        "required": ["name", "birthday", "type", "comments", "photoURL"],
+        "required": ["name", "birthday", "type", "photoURL"],
         "properties": {
           "name": {
             "type": "string",
