@@ -17,9 +17,9 @@ const petSchema = Schema(
       required: [true, "Pet birthday is required"],
       default: "",
     },
-    breed: {
+    type: {
       type: String,
-      required: [true, "Pet breed is required"],
+      required: [true, "Pet type is required"],
     },
     comments: {
       type: String,
@@ -61,7 +61,7 @@ const addPetSchema = Joi.object({
     "string.empty": "The birthday must not be empty",
     "string.pattern.base": "The birthday must be in format YYYY-MM-DD",
   }),
-  breed: Joi.string().min(3).required().empty(false).messages({
+  type: Joi.string().min(3).required().empty(false).messages({
     "string.base": "The type must be a string",
     "any.required": "The type field is required",
     "string.empty": "The type must not be empty",
