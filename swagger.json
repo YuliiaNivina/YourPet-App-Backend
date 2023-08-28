@@ -1419,7 +1419,7 @@
           "sex",
           "birthday",
           "type",
-          "imgURL",
+          "imgUrl",
           "location",
           "price",
           "category"
