@@ -73,8 +73,14 @@ const login = async (req, res) => {
     accessToken,
     refreshToken,
     user: {
+      avatarURL: user.avatarURL,
       name: user.name,
       email: user.email,
+      public_id: user.public_id,
+      favoriteNotices: user.favoriteNotices,
+      birthday: user.birthday,
+      phone: user.phone,
+      city: user.city
     },
   });
 };
