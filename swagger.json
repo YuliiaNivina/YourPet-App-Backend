@@ -1022,7 +1022,7 @@
               "description": "Pet's type",
               "example": "Spitz"
             },
-            "imgURL": {
+            "imgUrl": {
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
@@ -1057,7 +1057,7 @@
             "sex": "female",
             "birthday": "00.00.0000",
             "type": "Spitz",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1070,7 +1070,7 @@
             "sex": "male",
             "birthday": "00.00.0000",
             "type": "Persian",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1111,7 +1111,7 @@
             "description": "Pet's type",
             "example": "Spitz"
           },
-          "imgURL": {
+          "imgUrl": {
             "type": "string",
             "description": "Pet's photo",
             "format": "binary"
@@ -1173,7 +1173,7 @@
               "description": "Pet's type",
               "example": "Spitz"
             },
-            "imgURL": {
+            "imgUrl": {
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
@@ -1208,7 +1208,7 @@
             "sex": "female",
             "birthday": "00.00.0000",
             "type": "Spitz",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1221,7 +1221,7 @@
             "sex": "male",
             "birthday": "00.00.0000",
             "type": "Persian",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1264,7 +1264,7 @@
               "description": "Pet's type",
               "example": "Spitz"
             },
-            "imgURL": {
+            "imgUrl": {
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
@@ -1299,7 +1299,7 @@
             "sex": "female",
             "birthday": "00.00.0000",
             "type": "Spitz",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1312,7 +1312,7 @@
             "sex": "male",
             "birthday": "00.00.0000",
             "type": "Persian",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1355,7 +1355,7 @@
               "description": "Pet's type",
               "example": "Spitz"
             },
-            "imgURL": {
+            "imgUrl": {
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
@@ -1390,7 +1390,7 @@
             "sex": "female",
             "birthday": "00.00.0000",
             "type": "Spitz",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1403,7 +1403,7 @@
             "sex": "male",
             "birthday": "00.00.0000",
             "type": "Persian",
-            "imgURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1450,7 +1450,7 @@
             "description": "Pet's type",
             "example": "Spitz"
           },
-          "imgURL": {
+          "imgUrl": {
             "type": "string",
             "description": "Pet's photo",
             "format": "binary"
@@ -1510,7 +1510,7 @@
             "description": "Pet's type",
             "example": "Spitz"
           },
-          "imgURL": {
+          "imgUrl": {
             "type": "string",
             "description": "Pet's photo",
             "format": "binary"
