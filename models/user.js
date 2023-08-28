@@ -31,10 +31,13 @@ const userSchema = new Schema(
       required: true,
     },
 
-    token: {
+    accessToken: {
       type: String,
-      default: null,
     },
+    refreshToken: {
+      type: String,
+    },
+
     public_id: {
       type: String,
       default: "",
@@ -112,6 +115,10 @@ const joiLoginSchema = Joi.object({
     }),
 });
 
+const joiRefreshSchema = Joi.object({
+  refreshToken: Joi.string().empty(false).required(),
+});
+
 const joyUpdateSchema = Joi.object({
   email: Joi.string().email(),
   name: Joi.string(),
@@ -123,6 +130,7 @@ const joyUpdateSchema = Joi.object({
 const schemas = {
   joiRegisterSchema,
   joiLoginSchema,
+  joiRefreshSchema,
   joyUpdateSchema,
 };
 
