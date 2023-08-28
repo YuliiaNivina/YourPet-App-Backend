@@ -522,7 +522,14 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Get favorites notices",
-        "parameters": [],
+        "parameters": [
+            {
+            "name": "ownerId",
+            "in": "path",
+            "description": "ID of owner to use",
+            "required": true
+          }
+        ],
         "security": [{ "Bearer": [] }],
 
         "responses": {
