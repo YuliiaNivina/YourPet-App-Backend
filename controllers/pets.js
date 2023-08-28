@@ -68,15 +68,15 @@ const addUserPet = async (req, res, next) => {
 const deleteUserPet = async (req, res, next) => {
   const { petId } = req.params;
   const userId = req.user.id;
-  const deletingImage = await Pet.findById({ _id: petId, owner: userId });
-  const result = await Pet.findByIdAndRemove(petId);
-  if (!result) {
+  const deletingImage = await Pet.findById({ _id: req.params.petId })
+    const status = await Pet.findByIdAndRemove({ _id: petId, owner: userId })
+  if (!status) {
     throw ResultError(404);
   }
   try {
     await cloudinary.uploader
       .destroy(deletingImage.public_id)
-      .then((result) => result);
+      .then( (result) => result)
   } catch (error) {
     next(ResultError(404, error.message));
   }
