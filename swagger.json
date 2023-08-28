@@ -377,10 +377,10 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Category of notices",
+            "description": "Category of notices: sell, lost/found, in good hands",
             "required": true,
             "style": "form",
-            "example": "sell, lost/found, in good hands"
+            "example": "sell"
           },
           {
             "name": "page",
@@ -523,12 +523,6 @@
         "tags": ["Notices"],
         "summary": "Get favorites notices",
         "parameters": [
-            {
-            "name": "ownerId",
-            "in": "path",
-            "description": "ID of owner to use",
-            "required": true
-          }
         ],
         "security": [{ "Bearer": [] }],
 
@@ -592,12 +586,6 @@
             "name": "noticeId",
             "in": "path",
             "description": "ID of notice to use",
-            "required": true
-          },
-           {
-            "name": "userId",
-            "in": "query",
-            "description": "ID of user to use",
             "required": true
           }
         ],
@@ -1435,7 +1423,6 @@
           "type",
           "imgUrl",
           "location",
-          "price",
           "category"
         ],
         "properties": {
@@ -1476,7 +1463,7 @@
           },
           "price": {
             "type": "string",
-            "description": "Pet price",
+            "description": "Pet price is required for the 'sell' category",
             "example": "100$"
           },
           "comments": {
