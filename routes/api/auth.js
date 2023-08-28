@@ -10,6 +10,8 @@ router.post("/register", validateBody(schemas.joiRegisterSchema), ctrl.register)
 
 router.post("/login", validateBody(schemas.joiLoginSchema), ctrl.login);
 
+router.post("/refresh", validateBody(schemas.joiRefreshSchema), ctrl.refresh);
+
 router.post("/logout", authenticate, ctrl.logout);
 
 module.exports = router;
