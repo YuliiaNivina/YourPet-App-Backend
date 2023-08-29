@@ -37,8 +37,8 @@ const register = async (req, res) => {
     accessToken,
     refreshToken,
     user: {
-      name: user.name,
-      email: user.email,
+      name: newUser.name,
+      email: newUser.email,
     },
   });
 };
