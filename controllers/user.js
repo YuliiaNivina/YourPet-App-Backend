@@ -32,19 +32,21 @@ const updateUserData = async (req, res, next) => {
       runValidators: true,
     });
 
-    if (!name || !email) throw ResultError(404, "Not found");
+  if (!name || !email) throw ResultError(404, "Not found");
 
   res.status(201).json({ _id, name, email, avatarURL, birthday, phone, city });
 };
 
 const updateUserAvatar = async (req, res, next) => {
   const { path: tempUpload, originalname } = req.file;
+console.log(path)
   const { _id } = req.user;
   const userAvatar = await User.findById({ _id });
-
-  await cloudinary.uploader
-    .destroy(userAvatar.public_id)
-    .then((result) => result);
+  userAvatar.public_id !== ""
+    ? await cloudinary.uploader
+        .destroy(userAvatar.public_id)
+        .then((result) => result)
+    : (userAvatar.public_id = "");
 
   const filename = `${_id}_${originalname}`;
   const resultUpload = path.join(avatarDir, filename);
