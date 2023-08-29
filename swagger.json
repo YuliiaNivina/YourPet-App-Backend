@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.15",
+    "version": "1.16",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -13,7 +13,7 @@
   "produces": ["application/json", "multipart/form-data"],
   "servers": [
     {
-      "url": "https://localhost:3000/api",
+      "url": "http://localhost:3000/api",
       "description": "Internal server for testing"
     },
     {
@@ -322,7 +322,7 @@
         "security": [{ "Bearer": [] }],
 
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -359,7 +359,7 @@
           "description": "User's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UserUpdateRequest"
               }
@@ -370,7 +370,7 @@
           "201": {
             "description": "Successful operation",
             "content": {
-              "application/json": {
+              "multipart/form-data": {
                 "schema": {
                   "$ref": "#/components/schemas/UserUpdateResponse"
                 }
@@ -678,7 +678,7 @@
         }
       }
     },
-    "/notices/{noticeId}/favorite": {
+    "/notices/{noticeId}/favorites": {
       "patch": {
         "tags": ["Notices"],
         "summary": "Add and delite notice to favorite",
@@ -693,7 +693,7 @@
         "security": [{ "Bearer": [] }],
 
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "multipart/form-data": {
@@ -856,7 +856,7 @@
           "refreshToken": {
             "type": "string",
             "description": "User's refresh token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI"
+            "example": ""
           }
         }
       },
@@ -1035,13 +1035,8 @@
 
       "UserUpdateRequest": {
         "type": "object",
-        "required": ["email", "birthday"],
+        "required": ["email", "avatarURL", "birthday"],
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Current user's id",
-            "format": "uuid"
-          },
           "name": {
             "type": "string",
             "description": "User's name",
@@ -1055,8 +1050,7 @@
           "avatarURL": {
             "type": "string",
             "description": "User's photo",
-            "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "format": "binary"
           },
           "birthday": {
             "type": "string",
@@ -1065,7 +1059,7 @@
           },
           "phone": {
             "type": "string",
-            "description": "User's birthday",
+            "description": "User's phone",
             "example": "+380000000000"
           },
           "city": {
@@ -1078,30 +1072,41 @@
       "UserUpdateResponse": {
         "type": "object",
         "properties": {
-          "email": {
+          "_id": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
+            "description": "User's id",
+            "format": "uuid"
           },
           "name": {
             "type": "string",
             "description": "User's name",
             "example": "John"
           },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "User's photo",
+            "format": "binary",
+            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+          },
           "birthday": {
             "type": "string",
             "description": "User's birthday",
             "example": "2023-08-28"
           },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380000000000"
+          },
           "city": {
             "type": "string",
             "description": "User's city of residence",
             "example": "Kiev"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's birthday",
-            "example": "+380000000000"
           }
         }
       },
@@ -1122,7 +1127,8 @@
           "avatarURL": {
             "type": "string",
             "description": "User's avatar",
-            "format": "binary"
+            "format": "binary",
+            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           }
         }
       },
@@ -1135,7 +1141,7 @@
             "_id": {
               "type": "string",
               "description": "notice's id",
-              "format": "uuid"
+              "example": "g3y278yfh"
             },
             "name": {
               "type": "string",
@@ -1421,95 +1427,86 @@
         ]
       },
       "UpdateFavoriteIdResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "notice's id",
-              "format": "uuid"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Bruno"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Сute dog looking for a home"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "female"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday",
-              "example": "2023-08-28"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "Spitz"
-            },
-            "imgUrl": {
-              "type": "string",
-              "description": "Pet's photo",
-              "format": "binary"
-            },
-            "location": {
-              "type": "string",
-              "description": "Pet's location",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "string",
-              "description": "Pet price",
-              "example": "100$"
-            },
-            "comments": {
-              "type": "string",
-              "description": "About pet",
-              "example": "Something about pet"
-            },
-            "category": {
-              "type": "string",
-              "description": "Notice category",
-              "example": "sell"
-            }
-          }
-        },
-        "example": [
-          {
-            "_Id": "497349tyh",
-            "name": "Bruno",
-            "title": "Сute dog looking for a home 1",
-            "sex": "female",
-            "birthday": "2023-08-28",
-            "type": "Spitz",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
-            "location": "Lviv",
-            "price": "100$",
-            "comments": "Something about pet",
-            "category": "sell"
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "notice's id",
+            "format": "uuid"
           },
-          {
-            "_Id": "485nhfvi9t",
-            "name": "Puppy",
-            "title": "Сute cat looking for a home 2",
-            "sex": "male",
-            "birthday": "2023-08-28",
-            "type": "Persian",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
-            "location": "Kyiv",
-            "price": "10$",
-            "comments": "Something about pet",
-            "category": "sell"
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Bruno"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of notice",
+            "example": "Сute dog looking for a home"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Sex of pet",
+            "example": "female"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "example": "2023-08-28"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Spitz"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary",
+            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+          },
+          "location": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet price",
+            "example": "100$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "About pet",
+            "example": "Something about pet"
+          },
+          "category": {
+            "type": "string",
+            "description": "Notice category",
+            "example": "sell"
+          },
+          "favorite": {
+            "type": "array",
+            "items":{
+              "type": "string"
+            }
+          },
+          "owner": {
+            "type": "object",
+            "description": "Notice owner",
+            "example": {}
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "pablicId": {
+            "type": "string",
+            "example": ""
           }
-        ]
+        }
       },
       "UsersNoticesResponse": {
         "type": "array",
@@ -1757,8 +1754,6 @@
           "favorite": {
             "type": "array",
             "items":{
-              "type": "string",
-              "example": ""
             }
           },
           "owner": {

@@ -89,9 +89,9 @@ const refresh = async (req, res) => {
   const { refreshToken: token } = req.body;
   try {
     const { id } = jwt.verify(token, REFRESH_SECRET_KEY);
-    const isExist = await User.findOne({ refreshToken: token });
+    const user = await User.findById(id);
 
-    if (!isExist) {
+    if (!user || user.refreshToken !== token) {
       throw ResultError(403, "Token is not valid");
     }
 
@@ -102,13 +102,17 @@ const refresh = async (req, res) => {
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
       expiresIn: "10m",
     });
-    const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+    const newRefreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
       expiresIn: "10d",
     });
 
+    user.accessToken = accessToken;
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
     res.status(201).json({
       accessToken,
-      refreshToken,
+      refreshToken: newRefreshToken,
     });
   } catch {
     throw ResultError(403, "Token is not valid");
