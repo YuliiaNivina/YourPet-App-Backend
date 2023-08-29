@@ -7,15 +7,7 @@ const { Pet } = require("../models/pet");
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const getUserPets = async (req, res) => {
-  const {
-    _id: owner,
-    name,
-    email,
-    photoURL,
-    birthday,
-    phone,
-    city,
-  } = req.user;
+  const { _id: owner } = req.user;
 
   const result = await Pet.find(
     { owner },
@@ -26,10 +18,7 @@ const getUserPets = async (req, res) => {
     throw ResultError(404, "Not found");
   }
 
-  res.status(200).json({
-    pets: result,
-    owner: { _id: owner, name, email, photoURL, birthday, phone, city },
-  });
+  res.status(200).json(result)
 };
 
 const addUserPet = async (req, res) => {
