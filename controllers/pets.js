@@ -11,7 +11,7 @@ const getUserPets = async (req, res) => {
     _id: owner,
     name,
     email,
-    avatarURL,
+    photoURL,
     birthday,
     phone,
     city,
@@ -19,8 +19,7 @@ const getUserPets = async (req, res) => {
 
   const result = await Pet.find(
     { owner },
-    "name birthday type comments photoURL",
-    "-createdAt -updatedAt -owner"
+    "name birthday type comments photoURL"
   );
 
   if (!result) {
@@ -29,7 +28,7 @@ const getUserPets = async (req, res) => {
 
   res.status(200).json({
     pets: result,
-    owner: { _id: owner, name, email, avatarURL, birthday, phone, city },
+    owner: { _id: owner, name, email, photoURL, birthday, phone, city },
   });
 };
 
@@ -83,7 +82,7 @@ const addUserPet = async (req, res) => {
 
 const deleteUserPet = async (req, res, next) => {
   const { petId } = req.params;
-  const  { _id: owner } = req.user.id;
+  const { _id: owner } = req.user.id;
   const deletingImage = await Pet.findById({ _id: req.params.petId });
   const status = await Pet.findByIdAndRemove(petId, owner);
   if (!status) {
