@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.14",
+    "version": "1.15",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -117,6 +117,10 @@
           "401": {
             "description": "Email or password is wrong",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -158,6 +162,10 @@
           "403": {
             "description": "Token is not valid",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -177,6 +185,10 @@
           },
           "401": {
             "description": "Not authorized",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -222,6 +234,10 @@
           "403": {
             "description": "Forbidden",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -255,11 +271,15 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
     },
-    "/pets/users/{noticeId}": {
+    "/pets/users/{petId}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete user`s pet",
@@ -284,6 +304,10 @@
           },
           "404": {
             "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -314,6 +338,10 @@
           },
           "401": {
             "description": "Token not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -360,6 +388,10 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -404,6 +436,10 @@
           },
           "403": {
             "description": "Forbidden",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -453,6 +489,10 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       },
@@ -496,6 +536,10 @@
           "404": {
             "description": "User not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -527,6 +571,10 @@
           "404": {
             "description": "Not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       },
@@ -554,6 +602,10 @@
           },
           "404": {
             "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -585,6 +637,10 @@
           "404": {
             "description": "User not found",
             "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
           }
         }
       }
@@ -613,6 +669,10 @@
           },
           "404": {
             "description": "User not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -649,6 +709,10 @@
           },
           "404": {
             "description": "Notice not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
             "content": {}
           }
         }
@@ -885,7 +949,7 @@
         "items": {
           "type": "object",
           "properties": {
-            "petId": {
+            "_Id": {
               "type": "string",
               "description": "Pet's id",
               "format": "uuid"
@@ -914,32 +978,25 @@
               "type": "string",
               "description": "Pet's photo",
               "format": "binary"
-            },
-            "public_id": {
-              "type": "string",
-              "description": "Pet's id",
-              "format": "uuid"
             }
           }
         },
         "example": [
           {
-            "petId": "497349tyh",
+            "_Id": "497349tyh",
             "name": "Bruno",
             "birthday": "2023-08-28",
-            "breed": "Spitz",
+            "type": "Spitz",
             "comments": "Something about pet",
-            "image": "",
-            "public_id": "47gh49tyh"
+            "photoURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           },
           {
-            "petId": "485nhfvi9t",
+            "_Id": "485nhfvi9t",
             "name": "Bruno",
             "birthday": "2023-08-28",
-            "breed": "Spitz",
+            "type": "Spitz",
             "comments": "Something about pet",
-            "image": "",
-            "public_id": "47g129tyh"
+            "photoURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1281.jpg"
           }
         ]
       },
