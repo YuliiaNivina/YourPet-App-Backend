@@ -72,7 +72,10 @@ const addSchema = Joi.object({
       .lowercase()
       .valid("male", "female")
       .required(),
-    birthday: Joi.string().empty(""),
+    birthday: Joi.string()
+      .empty("")
+      .regex(/^\d{4}-\d{2}-\d{2}$/)
+      .message('Invalid date format. Use yyyy-mm-dd format.'),
     type: Joi.string().empty(""),
     imgUrl: Joi.string().empty(""),
     location: Joi.string().empty(""),
