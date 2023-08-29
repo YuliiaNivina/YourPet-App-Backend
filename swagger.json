@@ -259,7 +259,7 @@
         }
       }
     },
-    "/pets/users/{petId}": {
+    "/pets/users/{noticeId}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete user`s pet",
@@ -862,10 +862,21 @@
             "description": "Pet's birthday",
             "example": "2023-08-28"
           },
+          "type": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "Spitz"
+          },
           "comments": {
             "type": "string",
             "description": "About pet",
             "example": "Something about pet"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Pet's photo",
+            "format": "binary",
+            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           }
         }
       },
@@ -889,7 +900,7 @@
               "description": "Pet's birthday",
               "example": "2023-08-28"
             },
-            "breed": {
+            "type": {
               "type": "string",
               "description": "Pet's breed",
               "example": "Spitz"

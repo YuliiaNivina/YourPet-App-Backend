@@ -63,13 +63,13 @@ const addUserPet = async (req, res) => {
       owner,
     });
 
-    res.json({
+    res.status(201).json({
       petId: newPet._id,
       name: newPet.name,
       birthday: newPet.birthday,
-      breed: newPet.breed,
+      type: newPet.type,
       comments: newPet.comments,
-      photoURL: newPet.image,
+      photoURL: newPet.photoURL,
       photoId: newPet.public_id,
     });
   } catch (error) {
