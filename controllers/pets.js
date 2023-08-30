@@ -52,7 +52,7 @@ const addUserPet = async (req, res) => {
     });
 
     res.status(201).json({
-      id: newPet._id,
+      petId: newPet._id,
       name: newPet.name,
       birthday: newPet.birthday,
       type: newPet.type,
@@ -70,10 +70,10 @@ const addUserPet = async (req, res) => {
 };
 
 const deleteUserPet = async (req, res, next) => {
-  const { id } = req.params;
+  const { petId } = req.params;
   const { _id: owner } = req.user.id;
-  const deletingImage = await Pet.findById( id );
-  const status = await Pet.findByIdAndRemove(id, owner);
+  const deletingImage = await Pet.findById( {_id: req.params.petId} );
+  const status = await Pet.findByIdAndRemove(petId, owner);
   if (!status) {
     throw ResultError(404);
   }
