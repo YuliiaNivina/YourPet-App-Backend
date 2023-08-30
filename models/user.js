@@ -37,15 +37,6 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
-
-    public_id: {
-      type: String,
-      default: "",
-    },
-    favoriteNotices: {
-      type: Array,
-      default: [],
-    },
     birthday: {
       type: String,
       default: "",
