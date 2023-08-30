@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.16",
+    "version": "1.17",
     "title": "Your Pet",
     "description": "",
     "license": {
