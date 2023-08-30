@@ -77,7 +77,6 @@ const login = async (req, res) => {
       name: user.name,
       email: user.email,
       public_id: user.public_id,
-      favoriteNotices: user.favoriteNotices,
       birthday: user.birthday,
       phone: user.phone,
       city: user.city

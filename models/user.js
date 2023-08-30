@@ -44,9 +44,11 @@ const userSchema = new Schema(
     phone: {
       type: String,
       match: phoneRegexp,
+      default: "",
     },
     city: {
       type: String,
+      default: "",
     },
   },
   { versionKey: false, timestamps: true }

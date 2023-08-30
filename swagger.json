@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.20",
+    "version": "1.21",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -823,13 +823,6 @@
                 "type": "string",
                 "description": "User's email",
                 "format": "email"
-              },
-              "favorite": {
-                "type": "array",
-                "items":{
-                  "type": "string",
-                  "example": ""
-                }
               },
               "birthday": {
                 "type": "string",
