@@ -73,7 +73,7 @@ const deleteUserPet = async (req, res, next) => {
   const { petId } = req.params;
   const { _id: owner } = req.user.id;
   const deletingImage = await Pet.findById( {_id: req.params.petId} );
-  const status = await Pet.findByIdAndRemove(petId, owner);
+  const status = await Pet.findByIdAndRemove(req.params.petId, owner);
   if (!status) {
     throw ResultError(404);
   }
