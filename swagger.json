@@ -359,7 +359,7 @@
           "description": "User's object",
           "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UserUpdateRequest"
               }
@@ -370,7 +370,7 @@
           "201": {
             "description": "Successful operation",
             "content": {
-              "multipart/form-data": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserUpdateResponse"
                 }
@@ -1035,7 +1035,7 @@
 
       "UserUpdateRequest": {
         "type": "object",
-        "required": ["email", "avatarURL", "birthday"],
+        "required": ["email", "birthday"],
         "properties": {
           "name": {
             "type": "string",
@@ -1046,11 +1046,6 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "User's photo",
-            "format": "binary"
           },
           "birthday": {
             "type": "string",
@@ -1086,12 +1081,6 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
-          },
-          "photoURL": {
-            "type": "string",
-            "description": "User's photo",
-            "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
           },
           "birthday": {
             "type": "string",
