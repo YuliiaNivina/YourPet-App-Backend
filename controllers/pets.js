@@ -18,7 +18,7 @@ const getUserPets = async (req, res) => {
     throw ResultError(404, "Not found");
   }
 
-  res.status(200).json(result)
+  res.status(200).json(result);
 };
 
 const addUserPet = async (req, res) => {
@@ -69,21 +69,20 @@ const addUserPet = async (req, res) => {
   }
 };
 
-const deleteUserPet = async (req, res, next) => {
+const deleteUserPet = async (req, res) => {
   const { petId } = req.params;
-  const { _id: owner } = req.user.id;
-  const deletingImage = await Pet.findById( {_id: req.params.petId} );
-  const status = await Pet.findByIdAndRemove(petId, owner);
-  if (!status) {
-    throw ResultError(404);
+  const { _id: owner } = req.user;
+
+  const result = await Pet.findByIdAndRemove({
+    _id: petId,
+    owner: owner,
+  });
+
+  if (result.public_id) {
+    await cloudinary.uploader.destroy(result.public_id);
   }
-  try {
-    await cloudinary.uploader
-      .destroy(deletingImage.public_id)
-      .then((result) => result);
-  } catch (error) {
-    next(ResultError(404, error.message));
-  }
+
+  if (!result) throw ResultError(404, "Not found");
 
   res.json({ message: "Successful delete" });
 };
