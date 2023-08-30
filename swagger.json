@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.17",
+    "version": "1.18",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -408,7 +408,7 @@
           "description": "User's avatar",
           "required": true,
           "content": {
-            "image/png, image/jpeg": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/AvatarUpdateRequest"
               }
@@ -419,7 +419,7 @@
           "201": {
             "description": "Successful operation",
             "content": {
-              "image/png, image/jpeg": {
+              "multipart/form-data": {
                 "schema": {
                   "$ref": "#/components/schemas/AvatarUpdateResponse"
                 }
@@ -1106,8 +1106,7 @@
           "avatarURL": {
             "type": "string",
             "description": "User's avatar",
-            "format": "binary",
-            "example": ""
+            "format": "binary"
           }
         }
       },
