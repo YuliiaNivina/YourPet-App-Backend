@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.19",
+    "version": "1.20",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -13,13 +13,15 @@
   "produces": ["application/json", "multipart/form-data"],
   "servers": [
     {
-      "url": "http://localhost:3000/api",
-      "description": "Internal server for testing"
-    },
-    {
       "url": "https://yourpet-app-backend.onrender.com/api",
       "description": "Main (production) server"
+    },
+    {
+      
+      "url": "http://localhost:3000/api",
+      "description": "Internal server for testing"
     }
+    
   ],
   "tags": [
     {
@@ -810,7 +812,7 @@
                 "type": "string",
                 "description": "User's photo",
                 "format": "binary",
-                "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+                "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
               },
               "name": {
                 "type": "string",
@@ -904,7 +906,7 @@
             "type": "string",
             "description": "Pet's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           }
         }
       },
@@ -940,7 +942,7 @@
             "type": "string",
             "description": "Pet's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           }
         }
       },
@@ -988,7 +990,7 @@
             "birthday": "2023-08-28",
             "type": "Spitz",
             "comments": "Something about pet",
-            "photoURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "photoURL": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
           {
             "_Id": "485nhfvi9t",
@@ -996,7 +998,7 @@
             "birthday": "2023-08-28",
             "type": "Spitz",
             "comments": "Something about pet",
-            "photoURL": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1281.jpg"
+            "photoURL": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           }
         ]
       },
@@ -1023,7 +1025,7 @@
             "type": "string",
             "description": "User's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
           "birthday": {
             "type": "string",
@@ -1117,7 +1119,7 @@
             "type": "string",
             "description": "User's avatar",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           }
         }
       },
@@ -1211,7 +1213,7 @@
             "sex": "female",
             "birthday": "2023-08-28",
             "type": "Spitz",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1229,7 +1231,7 @@
             "sex": "male",
             "birthday": "2023-08-28",
             "type": "Persian",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1279,7 +1281,7 @@
             "type": "string",
             "description": "Pet's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
           "pablicId": {
             "type": "string",
@@ -1394,7 +1396,7 @@
             "sex": "female",
             "birthday": "2023-08-28",
             "type": "Spitz",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "location": "Lviv",
             "price": "100$",
             "comments": "Something about pet",
@@ -1407,7 +1409,7 @@
             "sex": "male",
             "birthday": "2023-08-28",
             "type": "Persian",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "location": "Kyiv",
             "price": "10$",
             "comments": "Something about pet",
@@ -1452,7 +1454,7 @@
             "type": "string",
             "description": "Pet's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
           "location": {
             "type": "string",
@@ -1586,7 +1588,7 @@
             "sex": "female",
             "birthday": "2023-08-28",
             "type": "Spitz",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "pablicId": "",
             "location": "Lviv",
             "price": "100$",
@@ -1604,7 +1606,7 @@
             "sex": "male",
             "birthday": "2023-08-28",
             "type": "Persian",
-            "imgUrl": "https://cdn.pixabay.com/photo/2016/03/28/10/05/kitten-1285341_1281.jpg",
+            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
             "pablicId": "",
             "location": "Kyiv",
             "price": "10$",
@@ -1714,7 +1716,7 @@
             "type": "string",
             "description": "Pet's photo",
             "format": "binary",
-            "example": "https://cdn.pixabay.com/photo/2016/03/28/10/05/dog-1285341_1280.jpg"
+            "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
           "public_id": {
             "type": "string",
