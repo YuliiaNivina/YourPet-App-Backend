@@ -503,7 +503,7 @@
         "security": [{ "Bearer": [] }],
 
         "requestBody": {
-          "description": "Registration's object",
+          "description": "Notice's object",
           "required": true,
           "content": {
             "multipart/form-data": {
