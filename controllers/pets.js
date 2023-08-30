@@ -52,7 +52,7 @@ const addUserPet = async (req, res) => {
     });
 
     res.status(201).json({
-      petId: newPet._id,
+      id: newPet._id,
       name: newPet.name,
       birthday: newPet.birthday,
       type: newPet.type,
