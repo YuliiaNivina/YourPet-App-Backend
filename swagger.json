@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.18",
+    "version": "1.19",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -279,13 +279,13 @@
         }
       }
     },
-    "/pets/users/{petId}": {
+    "/pets/users/{id}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete user`s pet",
         "parameters": [
           {
-            "name": "petId",
+            "name": "id",
             "in": "path",
             "description": "ID of pet to use",
             "required": true
