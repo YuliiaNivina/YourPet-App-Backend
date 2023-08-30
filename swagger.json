@@ -1106,7 +1106,8 @@
           "avatarURL": {
             "type": "string",
             "description": "User's avatar",
-            "format": "binary"
+            "format": "binary",
+            "example": ""
           }
         }
       },
