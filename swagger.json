@@ -1035,7 +1035,7 @@
 
       "UserUpdateRequest": {
         "type": "object",
-        "required": ["email", "birthday"],
+        "required": ["birthday"],
         "properties": {
           "name": {
             "type": "string",
