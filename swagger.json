@@ -279,13 +279,13 @@
         }
       }
     },
-    "/pets/users/{id}": {
+    "/pets/users/{petId}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete user`s pet",
         "parameters": [
           {
-            "name": "id",
+            "name": "petId",
             "in": "path",
             "description": "ID of pet to use",
             "required": true
