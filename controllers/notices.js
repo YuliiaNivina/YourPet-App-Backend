@@ -16,7 +16,10 @@ const listNotices = async (req, res, next) => {
     query.title = { $regex: search, $options: 'i' }; 
   }
 
-  const result = await Notice.find(query).skip(skip).limit(limit);
+  const result = await Notice.find(query)
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
 
   if(!result) {
     throw ResultError(404, "Not found");
@@ -62,7 +65,13 @@ const addNotice = async (req, res, next) => {
     throw ResultError(404, 'Not added');
   }
 
-  res.status(201).json(result);
+  const notices = await Notice.find()
+    .sort({ createdAt: -1 })
+    .limit(12); 
+
+  notices.unshift(result);
+
+  res.status(201).json(notices);
 };
   
 const removeNotice = async (req, res, next) => {
@@ -92,7 +101,9 @@ const listFavorites = async (req, res, next) => {
   const skip = (page - 1) * limit;
 
   const notices = await Notice.find({ favorite: userId })
-      .skip(skip).limit(limit);
+    .sort({ createdAt: -1 })    
+    .skip(skip)
+    .limit(limit);
 
   if(!notices) {
     throw ResultError(404, 'Not found');
@@ -128,7 +139,11 @@ const listMyNotices = async (req, res, next) => {
   const { page = 1, limit = 12 } = req.query;
   const skip = (page - 1) * limit;
   
-  const result = await Notice.find({ owner: ownerId }).skip(skip).limit(limit);
+  const result = await Notice.find({ owner: ownerId })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+
   if(!result) {
     throw ResultError(404, 'Not found');
   }

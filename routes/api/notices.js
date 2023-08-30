@@ -2,7 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/notices");
 
-const {authenticate, upload, validateBody, isValidId} = require("../../middlewares");
+const {authenticate, upload, validateBody, isValidIdNotice} = require("../../middlewares");
 
 const {schemas} = require("../../models/notice");
 
@@ -18,8 +18,8 @@ router.get("/:noticeId", ctrl.getNoticeById);
 
 router.post("/", authenticate, upload.single('imgUrl'), validateBody(schemas.addSchema), ctrl.addNotice);
 
-router.patch("/:noticeId/favorites", authenticate, isValidId, ctrl.updateFavorites);
+router.patch("/:noticeId/favorites", authenticate, isValidIdNotice, ctrl.updateFavorites);
 
-router.delete("/:noticeId", authenticate, isValidId, ctrl.removeNotice);
+router.delete("/:noticeId", authenticate, isValidIdNotice, ctrl.removeNotice);
 
 module.exports = router;
