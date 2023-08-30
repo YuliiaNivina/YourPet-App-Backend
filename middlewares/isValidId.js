@@ -5,7 +5,7 @@ const isValidId = (req, res, next) => {
   const { id } = req.params;
   if (!isValidObjectId(id)) {
 
-    next(ResultError(404, "Invalid id"));
+   return next(ResultError(404, "Invalid id"));
   }
   next();
 };
