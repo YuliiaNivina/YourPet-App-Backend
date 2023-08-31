@@ -99,20 +99,20 @@ const listFavorites = async (req, res, next) => {
   const { page = 1, limit = 12 } = req.query;
   const skip = (page - 1) * limit;
 
-  const notices = await Notice.find({ favorite: userId })
+  const result = await Notice.find({ favorite: userId })
     .sort({ createdAt: -1 })  
     .skip(skip)
     .limit(limit);
 
-  const totalNotices = await Notice.countDocuments(notices);  
+  const totalNotices = result.length;  
 
-  if(!notices) {
+  if(!result) {
     throw ResultError(404, 'Not found');
   } 
   
   const totalPages = Math.ceil(totalNotices / limit);
 
-  res.json({ notices, totalPages });
+  res.json({ result, totalPages });
 }
 
 const updateFavorites = async (req, res, next) => {
@@ -148,7 +148,7 @@ const listMyNotices = async (req, res, next) => {
     .skip(skip)
     .limit(limit);
 
-  const totalNotices = await Notice.countDocuments(result);    
+  const totalNotices = result.length;    
 
   if(!result) {
     throw ResultError(404, 'Not found');
