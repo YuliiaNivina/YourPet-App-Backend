@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.21",
+    "version": "1.22",
     "title": "Your Pet",
     "description": "",
     "license": {
@@ -418,7 +418,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "multipart/form-data": {
@@ -939,6 +939,7 @@
           }
         }
       },
+
       "UserPetsResponse": {
         "type": "array",
         "items": {
@@ -1024,6 +1025,16 @@
             "type": "string",
             "description": "User's birthday",
             "example": "2023-08-28"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "+380000000000"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city of residence",
+            "example": "Kiev"
           }    
         }
       },
@@ -1094,6 +1105,7 @@
           }
         }
       },
+
       "AvatarUpdateRequest": {
         "type": "object",
         "required": ["avatarURL"],
@@ -1118,125 +1130,129 @@
       },
 
       "NoticesResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "notice's id",
-              "example": "g3y278yfh"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Bruno"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Сute dog looking for a home"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "female"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday",
-              "example": "2023-08-28"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "Spitz"
-            },
-            "imgUrl": {
-              "type": "string",
-              "description": "Pet's photo",
-              "format": "binary"
-            },
-            "location": {
-              "type": "string",
-              "description": "Pet's location",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "string",
-              "description": "Pet price",
-              "example": "100$"
-            },
-            "comments": {
-              "type": "string",
-              "description": "About pet",
-              "example": "Something about pet"
-            },
-            "category": {
-              "type": "string",
-              "description": "Notice category",
-              "example": "sell"
-            },
-            "favorite": {
-              "type": "array",
-              "items":{
-                "type": "string"
+        "type": "object",
+        "propeties":{
+          "result":{
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "notice's id",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Pet's name"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice"
+                },
+                "sex": {
+                  "type": "string",
+                  "description": "Sex of pet"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Pet's birthday"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Pet's type"
+                },
+                "imgUrl": {
+                  "type": "string",
+                  "description": "Pet's photo",
+                  "format": "binary"
+                },
+                "pablicId": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Pet's location"
+                },
+                "price": {
+                  "type": "string",
+                  "description": "Pet price"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "About pet"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Notice category"
+                },
+                "favorite": {
+                  "type": "array",
+                  "items":{
+                    "type": "string"
+                  }
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "Notice owner"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
               }
-            },
-            "owner": {
-              "type": "string",
-              "description": "Notice owner"
-            },
-            "createdAt": {
-              "type": "string"
-            },
-            "updatedAt": {
-              "type": "string"
-            },
-            "pablicId": {
-              "type": "string"
+              
             }
-          }
-        },
-        "example": [
-          {
-            "_Id": "497349tyh",
-            "name": "Bruno",
-            "title": "Сute dog looking for a home 1",
-            "sex": "female",
-            "birthday": "2023-08-28",
-            "type": "Spitz",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "location": "Lviv",
-            "price": "100$",
-            "comments": "Something about pet",
-            "category": "sell",
-            "favorite": [],
-            "owner": "",
-            "createdAt": "",
-            "updatedAt": "",
-            "pablicId": ""
           },
-          {
-            "_Id": "485nhfvi9t",
-            "name": "Puppy",
-            "title": "Сute cat looking for a home 2",
-            "sex": "male",
-            "birthday": "2023-08-28",
-            "type": "Persian",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "location": "Kyiv",
-            "price": "10$",
-            "comments": "Something about pet",
-            "category": "sell",
-            "favorite": [],
-            "owner": "",
-            "createdAt": "",
-            "updatedAt": "",
-            "pablicId": ""
-          }
-        ]
+          "totalPages": {
+            "type": "integer"}
+        },
+        "example": {
+          "result": [
+            {
+              "_Id": "497349tyh",
+              "name": "Bruno",
+              "title": "Сute dog looking for a home 1",
+              "sex": "female",
+              "birthday": "2023-08-28",
+              "type": "Spitz",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Lviv",
+              "price": "100$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            },
+            {
+              "_Id": "485nhfvi9t",
+              "name": "Puppy",
+              "title": "Сute cat looking for a home 2",
+              "sex": "male",
+              "birthday": "2023-08-28",
+              "type": "Persian",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Kyiv",
+              "price": "10$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            }
+          ],
+          "totalPages": 1
+        }
+        
       },
+
       "NoticeByIdResponse": {
         "type": "object",
         "properties": {
@@ -1304,7 +1320,8 @@
             "type": "array",
             "items":{
               "type": "string"
-            }
+            },
+            "example": []
           },
           "owner": {
             "type": "object",
@@ -1312,104 +1329,143 @@
             "example": {}
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           }
         }
       },
+
       "FavoriteNoticesResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "notice's id",
-              "format": "uuid"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Bruno"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Сute dog looking for a home"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "female"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday",
-              "example": "2023-08-28"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "Spitz"
-            },
-            "imgUrl": {
-              "type": "string",
-              "description": "Pet's photo",
-              "format": "binary"
-            },
-            "location": {
-              "type": "string",
-              "description": "Pet's location",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "string",
-              "description": "Pet price",
-              "example": "100$"
-            },
-            "comments": {
-              "type": "string",
-              "description": "About pet",
-              "example": "Something about pet"
-            },
-            "category": {
-              "type": "string",
-              "description": "Notice category",
-              "example": "sell"
+        "type": "object",
+        "propeties":{
+          "result":{
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "notice's id",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Pet's name",
+                  "example": "Bruno"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice",
+                  "example": "Сute dog looking for a home"
+                },
+                "sex": {
+                  "type": "string",
+                  "description": "Sex of pet",
+                  "example": "female"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Pet's birthday",
+                  "example": "2023-08-28"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Pet's type",
+                  "example": "Spitz"
+                },
+                "imgUrl": {
+                  "type": "string",
+                  "description": "Pet's photo",
+                  "format": "binary"
+                },
+                "pablicId": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Pet's location"
+                },
+                "price": {
+                  "type": "string",
+                  "description": "Pet price"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "About pet"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Notice category"
+                },
+                "favorite": {
+                  "type": "array",
+                  "items":{
+                    "type": "string"
+                  }
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "Notice owner"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+              
             }
-          }
-        },
-        "example": [
-          {
-            "_Id": "497349tyh",
-            "name": "Bruno",
-            "title": "Сute dog looking for a home 1",
-            "sex": "female",
-            "birthday": "2023-08-28",
-            "type": "Spitz",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "location": "Lviv",
-            "price": "100$",
-            "comments": "Something about pet",
-            "category": "sell"
           },
-          {
-            "_Id": "485nhfvi9t",
-            "name": "Puppy",
-            "title": "Сute cat looking for a home 2",
-            "sex": "male",
-            "birthday": "2023-08-28",
-            "type": "Persian",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "location": "Kyiv",
-            "price": "10$",
-            "comments": "Something about pet",
-            "category": "sell"
-          }
-        ]
+          "totalPages": "integer"
+        },
+        "example": {
+          "result": [
+            {
+              "_Id": "497349tyh",
+              "name": "Bruno",
+              "title": "Сute dog looking for a home 1",
+              "sex": "female",
+              "birthday": "2023-08-28",
+              "type": "Spitz",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Lviv",
+              "price": "100$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            },
+            {
+              "_Id": "485nhfvi9t",
+              "name": "Puppy",
+              "title": "Сute cat looking for a home 2",
+              "sex": "male",
+              "birthday": "2023-08-28",
+              "type": "Persian",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Kyiv",
+              "price": "10$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            }
+          ],
+          "totalPages": 1
+        }
       },
+
       "UpdateFavoriteIdResponse": {
         "type": "object",
         "properties": {
@@ -1449,6 +1505,10 @@
             "format": "binary",
             "example": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg"
           },
+          "pablicId": {
+            "type": "string",
+            "example": ""
+          },
           "location": {
             "type": "string",
             "description": "Pet's location",
@@ -1473,7 +1533,8 @@
             "type": "array",
             "items":{
               "type": "string"
-            }
+            },
+            "example": []
           },
           "owner": {
             "type": "object",
@@ -1481,137 +1542,140 @@
             "example": {}
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "updatedAt": {
-            "type": "string"
-          },
-          "pablicId": {
             "type": "string",
             "example": ""
           }
         }
       },
+
       "UsersNoticesResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "notice's id",
-              "format": "uuid"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Bruno"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of notice",
-              "example": "Сute dog looking for a home"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Sex of pet",
-              "example": "female"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday",
-              "example": "2023-08-28"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "Spitz"
-            },
-            "imgUrl": {
-              "type": "string",
-              "description": "Pet's photo",
-              "format": "binary"
-            },
-            "pablicId": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string",
-              "description": "Pet's location",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "string",
-              "description": "Pet price",
-              "example": "100$"
-            },
-            "comments": {
-              "type": "string",
-              "description": "About pet",
-              "example": "Something about pet"
-            },
-            "category": {
-              "type": "string",
-              "description": "Notice category",
-              "example": "sell"
-            },
-            "favorite": {
-              "type": "array",
-              "items":{
-                "type": "string"
+        "type": "object",
+        "propeties":{
+          "result":{
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "notice's id",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Pet's name"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of notice"
+                },
+                "sex": {
+                  "type": "string",
+                  "description": "Sex of pet"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Pet's birthday"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Pet's type"
+                },
+                "imgUrl": {
+                  "type": "string",
+                  "description": "Pet's photo",
+                  "format": "binary"
+                },
+                "pablicId": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Pet's location"
+                },
+                "price": {
+                  "type": "string",
+                  "description": "Pet price"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "About pet"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Notice category"
+                },
+                "favorite": {
+                  "type": "array",
+                  "items":{
+                    "type": "string"
+                  }
+                },
+                "owner": {
+                  "type": "string",
+                  "description": "Notice owner"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
               }
-            },
-            "owner": {
-              "type": "string",
-              "description": "Notice owner"
-            },
-            "createdAt": {
-              "type": "string"
-            },
-            "updatedAt": {
-              "type": "string"
+              
             }
-          }
-        },
-        "example": [
-          {
-            "_Id": "497349tyh",
-            "name": "Bruno",
-            "title": "Сute dog looking for a home 1",
-            "sex": "female",
-            "birthday": "2023-08-28",
-            "type": "Spitz",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "pablicId": "",
-            "location": "Lviv",
-            "price": "100$",
-            "comments": "Something about pet",
-            "category": "sell",
-            "favorite": [],
-            "owner": "",
-            "createdAt": "",
-            "updatedAt": ""
           },
-          {
-            "_Id": "485nhfvi9t",
-            "name": "Puppy",
-            "title": "Сute cat looking for a home 2",
-            "sex": "male",
-            "birthday": "2023-08-28",
-            "type": "Persian",
-            "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
-            "pablicId": "",
-            "location": "Kyiv",
-            "price": "10$",
-            "comments": "Something about pet",
-            "category": "sell",
-            "favorite": [],
-            "owner": "",
-            "createdAt": "",
-            "updatedAt": ""
-          }
-        ]
+          "totalPages": {
+            "type": "integer"}
+        },
+        "example": {
+          "result": [
+            {
+              "_Id": "497349tyh",
+              "name": "Bruno",
+              "title": "Сute dog looking for a home 1",
+              "sex": "female",
+              "birthday": "2023-08-28",
+              "type": "Spitz",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Lviv",
+              "price": "100$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            },
+            {
+              "_Id": "485nhfvi9t",
+              "name": "Puppy",
+              "title": "Сute cat looking for a home 2",
+              "sex": "male",
+              "birthday": "2023-08-28",
+              "type": "Persian",
+              "imgUrl": "http://res.cloudinary.com/dcz7zpfdg/image/upload/v1693260510/w2thz0eo2evtshmhuggk.jpg",
+              "pablicId": "",
+              "location": "Kyiv",
+              "price": "10$",
+              "comments": "Something about pet",
+              "category": "sell",
+              "favorite": [],
+              "owner": "",
+              "createdAt": "",
+              "updatedAt": ""
+            }
+          ],
+          "totalPages": 1
+        }
+        
       },
+
       "AddNoticeRequest": {
         "type": "object",
         "required": [
@@ -1738,7 +1802,8 @@
           "favorite": {
             "type": "array",
             "items":{
-            }
+            },
+            "example": []
           },
           "owner": {
             "type": "string",
@@ -1751,10 +1816,12 @@
             "format": "uuid"
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "example": ""
           }
         }
       }
