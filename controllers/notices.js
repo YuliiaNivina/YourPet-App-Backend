@@ -16,6 +16,8 @@ const listNotices = async (req, res, next) => {
     query.title = { $regex: search, $options: 'i' }; 
   }
 
+  const totalNotices = await Notice.countDocuments(query);
+
   const result = await Notice.find(query)
     .sort({ createdAt: -1 })
     .skip(skip)
@@ -24,7 +26,10 @@ const listNotices = async (req, res, next) => {
   if(!result) {
     throw ResultError(404, "Not found");
   }
-  res.json(result);
+
+  const totalPages = Math.ceil(totalNotices / limit);
+
+  res.json({ result, totalPages });
 }
   
 const getNoticeById = async (req, res, next) => {
@@ -94,14 +99,20 @@ const listFavorites = async (req, res, next) => {
   const { page = 1, limit = 12 } = req.query;
   const skip = (page - 1) * limit;
 
-  const notices = await Notice.find({ favorite: userId })  
+  const notices = await Notice.find({ favorite: userId })
+    .sort({ createdAt: -1 })  
     .skip(skip)
     .limit(limit);
 
+  const totalNotices = await Notice.countDocuments(notices);  
+
   if(!notices) {
     throw ResultError(404, 'Not found');
-  }    
-  res.json(notices);
+  } 
+  
+  const totalPages = Math.ceil(totalNotices / limit);
+
+  res.json({ notices, totalPages });
 }
 
 const updateFavorites = async (req, res, next) => {
@@ -133,13 +144,19 @@ const listMyNotices = async (req, res, next) => {
   const skip = (page - 1) * limit;
   
   const result = await Notice.find({ owner: ownerId })
+    .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
+
+  const totalNotices = await Notice.countDocuments(result);    
 
   if(!result) {
     throw ResultError(404, 'Not found');
   }
-  res.json(result);   
+
+  const totalPages = Math.ceil(totalNotices / limit);
+  
+  res.json({ result, totalPages });   
 }
   
 module.exports = {
