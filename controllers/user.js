@@ -51,12 +51,12 @@ const updateUserAvatar = async (req, res) => {
   const avatarURL = path.join("avatars", filename);
   await User.findByIdAndUpdate(_id, { avatarURL });
 
-  const userAvatar = await User.findById({ _id });
-  userAvatar.public_id !== ""
-    ? await cloudinary.uploader
-        .destroy(userAvatar.public_id)
-        .then((result) => result)
-    : (userAvatar.public_id = "");
+  // const userAvatar = await User.findById({ _id });
+  // userAvatar.public_id !== ""
+  //   ? await cloudinary.uploader
+  //       .destroy(userAvatar.public_id)
+  //       .then((result) => result)
+  //   : (userAvatar.public_id = "");
 
   let imageURL;
   let publicId;
