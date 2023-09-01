@@ -113,8 +113,7 @@ const refresh = async (req, res) => {
       accessToken,
       refreshToken,
     });
-    console.log(accessToken);
-    console.log(refreshToken);
+
   } catch {
     throw ResultError(403, "Token is not valid");
   }
