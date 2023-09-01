@@ -101,18 +101,20 @@ const refresh = async (req, res) => {
     const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
       expiresIn: "10m",
     });
-    const newRefreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+    const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
       expiresIn: "10d",
     });
 
     user.accessToken = accessToken;
-    user.refreshToken = newRefreshToken;
+    user.refreshToken = refreshToken;
     await user.save();
 
     res.status(201).json({
       accessToken,
-      refreshToken: newRefreshToken,
+      refreshToken,
     });
+    console.log(accessToken);
+    console.log(refreshToken);
   } catch {
     throw ResultError(403, "Token is not valid");
   }
